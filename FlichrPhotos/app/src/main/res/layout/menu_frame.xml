@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <ImageView 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:src="@mipmap/menu_image"
+        android:scaleType="centerCrop"/>
+    
+    <ListView 
+        android:id="@+id/menu_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:choiceMode="singleChoice"
+        android:paddingLeft="@dimen/menu_list_padding"/>
+    
+
+</LinearLayout>

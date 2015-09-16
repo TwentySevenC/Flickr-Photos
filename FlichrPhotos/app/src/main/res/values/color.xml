@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="tabStripColor">#0000</color>
+    <color name="searchview_background_color">#424242</color>
+    <color name="searchview_text_color">#E0E0E0</color>
+    <color name="big_photo_default_background">#E0E0E0</color>
+</resources>

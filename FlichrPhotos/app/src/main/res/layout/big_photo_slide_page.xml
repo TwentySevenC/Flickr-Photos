@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/big_photo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:contentDescription="@string/big_photo_show"
+        android:src="@mipmap/menu_image" />
+
+    <TextView
+        android:id="@+id/photo_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|bottom"
+        android:layout_marginBottom="@dimen/photo_title_margin_bottom"
+        android:layout_marginLeft="@dimen/photo_title_margin_left"
+        android:text="@string/photo_title"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+    
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|left"
+            android:layout_marginTop="@dimen/author_info_margin_top"
+            android:layout_marginLeft="@dimen/author_info_margin_left">
+
+            <ImageView
+                android:layout_width="@dimen/author_photo_width"
+                android:layout_height="@dimen/author_photo_height"
+                android:id="@+id/photo_auther_image"
+                android:layout_marginRight="@dimen/author_photo_margin_right"
+                android:layout_gravity="center_vertical"
+                android:src="@android:drawable/sym_def_app_icon"
+                android:contentDescription="@string/photo_author_image"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/photo_author_name"
+                android:id="@+id/photo_auther_name"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+        </LinearLayout>
+
+</FrameLayout>

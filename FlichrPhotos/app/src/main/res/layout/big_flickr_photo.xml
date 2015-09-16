@@ -1,0 +1,110 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/big_photo_container">
+            
+        <!-- <android.support.v4.view.ViewPager
+            android:id="@+id/photo_pager"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_gravity="center"
+            /> -->
+    </FrameLayout>
+    
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/close_big_photo"
+        android:layout_gravity="right|top"
+        android:contentDescription="@string/close_big_photo"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="16dp"
+        android:src="@android:drawable/ic_input_delete"/>
+    
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="60dp"
+            android:background="#efe1ff"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/photo_favourate"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
+            android:src="@android:drawable/star_off"
+            android:contentDescription="@string/photo_favourate"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/photo_conmments"
+            android:layout_toRightOf="@+id/photo_favourate"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
+            android:src="@android:drawable/sym_action_chat"
+            android:contentDescription="@string/photo_comments"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/photo_share"
+            android:layout_marginRight="20dp"
+            android:layout_toRightOf="@+id/photo_conmments"
+            android:layout_centerVertical="true"
+            android:src="@android:drawable/ic_menu_share"
+            android:contentDescription="@string/photo_share"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/photo_info"
+            android:layout_toRightOf="@+id/photo_share"
+            android:layout_centerVertical="true"
+            android:src="@android:drawable/ic_menu_info_details"
+            android:contentDescription="@string/photo_share"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/photo_fave_num"
+                android:id="@+id/photo_num_faves"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/photo_comment_num"
+                android:id="@+id/photo_num_comments"
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</FrameLayout>

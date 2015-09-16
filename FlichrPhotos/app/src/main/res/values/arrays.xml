@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="menu_list_item">
+        <item >SIGN IN</item>
+        <item >EXPLORE</item>
+        <item >JOURNAL</item>
+        <item >LIBRARY</item>
+        <item >SHOP</item>
+        <item >SETTING</item>
+    </string-array>
+</resources>
