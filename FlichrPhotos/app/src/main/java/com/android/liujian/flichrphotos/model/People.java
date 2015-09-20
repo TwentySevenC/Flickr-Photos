@@ -1,5 +1,7 @@
 package com.android.liujian.flichrphotos.model;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by liujian on 15/9/11.
  * Model - people
@@ -10,6 +12,7 @@ public class People {
     private String mUserName;
     private String mRealName;
     private String mLocation;
+    private Bitmap mBuddyicon;
 
     public People(){
         //default constructor
@@ -20,6 +23,14 @@ public class People {
         mUserName = userName;
         mRealName = realName;
         mLocation = location;
+    }
+
+    public Bitmap getBuddyicon() {
+        return mBuddyicon;
+    }
+
+    public void setBuddyicon(Bitmap buddyicon) {
+        mBuddyicon = buddyicon;
     }
 
     public String getId() {

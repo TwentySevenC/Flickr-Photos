@@ -11,12 +11,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.SoftReference;
 import java.net.URL;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by liujian on 15/9/16.
@@ -25,21 +29,39 @@ import java.util.concurrent.Executors;
  */
 public class BitmapManager {
     private static final String TAG = "BitmapManager";
+
+    /**
+     * The number of threads to keep in the pool, even if they are idle,
+     * unless allowCoreThreadTimeOut is set
+     */
+    private static final int CORE_POOL_SIZE = 3;
+
+    /**
+     * The maximum number od threads to allow in the pool
+     */
     private static final int MAX_THREAD_POOL_SIZE = 5;
 
-    private BitmapManager mBitmapManager = null;
+    /**
+     * When the number of threads is greater than the core, this is the maximum time that excess
+     * idle threads will wait for new tasks before terminating
+     */
+    private static final long KEEP_ALIVE_TIME = 2;
+
+
+    private static BitmapManager mBitmapManager = null;
     private final Map<String,SoftReference<Bitmap>> mCache;
-    private ExecutorService mThreadPool;
+    private ThreadPoolExecutor mThreadPool;
     private final Map<ImageView, String> mImageViews =
             Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
 
     private BitmapManager(){
         mCache = new HashMap<>();
-        mThreadPool = Executors.newFixedThreadPool(MAX_THREAD_POOL_SIZE);
+        mThreadPool = new ThreadPoolExecutor(CORE_POOL_SIZE, MAX_THREAD_POOL_SIZE, KEEP_ALIVE_TIME,
+                TimeUnit.SECONDS, new BlockingLifoDeque<Runnable>());
     }
 
 
-    public BitmapManager get(){
+    public static BitmapManager get(){
         if(mBitmapManager == null){
             mBitmapManager = new BitmapManager();
         }
@@ -49,7 +71,7 @@ public class BitmapManager {
 
     /**
      * Get the Bitmap from cache
-     * @param url
+     * @param url url
      * @return a Bitmap
      */
     private Bitmap getBitmapFromCache(String url){
@@ -65,7 +87,8 @@ public class BitmapManager {
      */
     public void reset(){
         ExecutorService _oldThreadPool = mThreadPool;
-        mThreadPool = Executors.newFixedThreadPool(MAX_THREAD_POOL_SIZE);
+        mThreadPool = new ThreadPoolExecutor(CORE_POOL_SIZE, MAX_THREAD_POOL_SIZE, KEEP_ALIVE_TIME,
+                TimeUnit.SECONDS, new BlockingLifoDeque<Runnable>());
         _oldThreadPool.shutdown();
         mCache.clear();
         mImageViews.clear();
@@ -77,7 +100,7 @@ public class BitmapManager {
      * @param imageView imageView
      * @param placeHolder default image
      */
-    public void loadBitmap(String url, ImageView imageView, Bitmap placeHolder){
+    public void loadBitmap(String url, ImageView imageView, int placeHolder){
         mImageViews.put(imageView, url);
 
         Bitmap _bitmap = getBitmapFromCache(url);
@@ -86,7 +109,7 @@ public class BitmapManager {
             imageView.setImageBitmap(_bitmap);
             Log.d(TAG, "Get bitmap from cache..");
         }else{
-            imageView.setImageBitmap(placeHolder);
+            imageView.setImageResource(placeHolder);
             queueJob(url, imageView, placeHolder);
             Log.d(TAG, "Get bitmap from network..");
         }
@@ -97,9 +120,9 @@ public class BitmapManager {
      * Put the task in a message queue
      * @param url url
      * @param imageView imageView
-     * @param placeHolder default image
+     * @param resourceId default image id
      */
-    private void queueJob(final String url, final ImageView imageView, final Bitmap placeHolder){
+    private void queueJob(final String url, final ImageView imageView, final int resourceId){
 
         /**Create a handler in UI thread*/
         final Handler _handler = new Handler(){
@@ -110,7 +133,7 @@ public class BitmapManager {
                     if(msg.obj != null)
                         imageView.setImageBitmap((Bitmap)msg.obj);
                     else
-                        imageView.setImageBitmap(placeHolder);
+                        imageView.setImageResource(resourceId);
                 }
             }
         };
@@ -144,6 +167,105 @@ public class BitmapManager {
         }
 
         return null;
+    }
+
+
+    /**
+     * LIFO deque, put object to queue first and get object from queue first
+     * @param <T>
+     */
+    private final class BlockingLifoDeque<T> extends LinkedBlockingDeque<T> {
+
+        public BlockingLifoDeque() {
+            super();
+        }
+
+        public BlockingLifoDeque(int capacity) {
+            super(capacity);
+        }
+
+        public BlockingLifoDeque(Collection<? extends T> c) {
+            super(c);
+        }
+
+        @Override
+        public boolean add(T t) {
+            super.addFirst(t);
+            return true;
+        }
+
+        @Override
+        public void put(T t) throws InterruptedException {
+            super.putFirst(t);
+        }
+
+        @Override
+        public T element() {
+            return super.getFirst();
+        }
+
+        @Override
+        public T peek() {
+            return super.peekFirst();
+        }
+
+        @Override
+        public int drainTo(Collection<? super T> c) {
+            return super.drainTo(c);
+        }
+
+        @Override
+        public int drainTo(Collection<? super T> c, int maxElements) {
+            return super.drainTo(c, maxElements);
+        }
+
+
+        @Override
+        public boolean offer(T t) {
+            return super.offerFirst(t);
+        }
+
+        @Override
+        public boolean offer(T t, long timeout, TimeUnit unit) throws InterruptedException {
+            return super.offerFirst(t, timeout, unit);
+        }
+
+        @Override
+        public T remove() {
+            return super.removeFirst();
+        }
+
+        @Override
+        public T poll() {
+            return super.pollFirst();
+        }
+
+        @Override
+        public T poll(long timeout, TimeUnit unit) throws InterruptedException {
+            return super.pollFirst(timeout, unit);
+        }
+
+        @Override
+        public T take() throws InterruptedException {
+            return super.takeFirst();
+        }
+
+
+
+        @Override
+        public T pop() {
+            return super.removeFirst();
+        }
+
+        @Override
+        public void push(T t) {
+            super.addFirst(t);
+        }
+
+        @Override
+        public boolean remove(Object o) {
+            return super.removeFirstOccurrence(o);
+        }
     }
 
 }

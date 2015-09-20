@@ -265,7 +265,7 @@ public class FlickrUtils {
      * @param url url
      * @return a list of comment
      */
-    public static List<Comment> fetchComments(String url){
+    public static ArrayList<Comment> fetchComments(String url){
         ArrayList<Comment> _comments = new ArrayList<>();
         try{
             String _xmlString = getUrl(url);

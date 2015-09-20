@@ -1,14 +1,13 @@
 package com.android.liujian.flichrphotos.fragments;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.android.liujian.flichrphotos.BigPhotoPagerActivity;
+import com.android.liujian.flichrphotos.control.BitmapManager;
 import com.android.liujian.flichrphotos.control.Flickr;
 import com.android.liujian.flichrphotos.model.Photo;
 import com.android.liujian.flichrphotos.R;
@@ -34,8 +34,8 @@ public class FlickrExploreFragment extends Fragment {
     private static final String TAG = "FlickrExploreFragment";
     
     private ListView mListView;
-    private List<Photo> mItems;
-    private ThumbnailDownloader<ImageView> mThumbnailDownloader;
+    private ArrayList<Photo> mItems;
+//    private ThumbnailDownloader<ImageView> mThumbnailDownloader;
 
     public FlickrExploreFragment() {
         // Required empty public constructor
@@ -48,13 +48,13 @@ public class FlickrExploreFragment extends Fragment {
         setRetainInstance(true);
         new FetchItemsTask().execute();
 
-        /**Start the handler thread*/
+        /**Start the handler thread*//*
         mThumbnailDownloader = new ThumbnailDownloader<ImageView>(new Handler());
         mThumbnailDownloader.setOnThumbnailListener(new ThumbnailDownloader.ThumbnailListener<ImageView>() {
 
 			@Override
 			public void onThumbnailHandler(ImageView imageView, Bitmap bitmap) {
-				/**If the fragment is visible, set a bitmap for imageView*/
+				*//**If the fragment is visible, set a bitmap for imageView*//*
                 if (isVisible()) {
                     imageView.setImageBitmap(bitmap);
                 }
@@ -64,7 +64,7 @@ public class FlickrExploreFragment extends Fragment {
         mThumbnailDownloader.start();
         mThumbnailDownloader.getLooper();
 
-        Log.d(TAG, "Background thread started.");
+        Log.d(TAG, "Background thread started.");*/
 
     }
 	@Override
@@ -115,8 +115,8 @@ public class FlickrExploreFragment extends Fragment {
     @Override
     public void onDestroy(){
         /**Quit the handler thread*/
-        mThumbnailDownloader.quit();
-        mThumbnailDownloader = null;
+//        mThumbnailDownloader.quit();
+//        mThumbnailDownloader = null;
 
         super.onDestroy();
     }
@@ -124,20 +124,23 @@ public class FlickrExploreFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        mThumbnailDownloader.clearQueue();
+//        mThumbnailDownloader.clearQueue();
         super.onDestroyView();
     }
 
-    private class FetchItemsTask extends AsyncTask<Void, Void, List<Photo>> {
+    private class FetchItemsTask extends AsyncTask<Void, Void, ArrayList<Photo>> {
         @Override
-        protected List<Photo> doInBackground(Void ... params){
+        protected ArrayList<Photo> doInBackground(Void ... params){
 
             return new Flickr().getInterestingPhotos();
         }
 
         @Override
-        protected void onPostExecute(List<Photo> photos) {
+        protected void onPostExecute(ArrayList<Photo> photos) {
             mItems = photos;
+
+            Log.d(TAG, "Success to download the interesting photos.");
+
             setUpAdapter();
         }
 
@@ -159,8 +162,8 @@ public class FlickrExploreFragment extends Fragment {
             }
 
             ImageView _imageView = (ImageView)convertView.findViewById(R.id.photo_item);
-            mThumbnailDownloader.queueThumbnail(_imageView, mItems.get(position).getUrl());
-
+//            mThumbnailDownloader.queueThumbnail(_imageView, mItems.get(position).getUrl());
+            BitmapManager.get().loadBitmap(mItems.get(position).getUrl(), _imageView, R.mipmap.menu_image);
             return convertView;
         }
 
@@ -178,7 +181,9 @@ public class FlickrExploreFragment extends Fragment {
 				long id) {
 			Intent intent = new Intent(getActivity(), BigPhotoPagerActivity.class);
 			Bundle bundle = new Bundle();
-			bundle.putString(BigPhotoPagerActivity.BIG_PHOTO, mItems.get(position).getUrl());
+
+            bundle.putSerializable(BigPhotoPagerActivity.BIG_PHOTO_ITEMS, mItems);
+            bundle.putInt(BigPhotoPagerActivity.BIG_PHOTO_POSITION, position);
 			
 			startActivity(intent);
 		}

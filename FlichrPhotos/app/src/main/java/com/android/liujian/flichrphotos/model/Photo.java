@@ -1,11 +1,13 @@
 package com.android.liujian.flichrphotos.model;
 
 
+import java.io.Serializable;
+
 /**
  * Created by lj on 2015/8/14.
  * A photo class storing information of photo
  */
-public class Photo {
+public class Photo implements Serializable{
     private String mTitle;
     private String mUrl;
     private String mId;
@@ -57,6 +59,10 @@ public class Photo {
 
     public void setTitle(String caption){
         mTitle = caption;
+    }
+
+    public String getTitle() {
+        return mTitle;
     }
 
     public String getUrl() {

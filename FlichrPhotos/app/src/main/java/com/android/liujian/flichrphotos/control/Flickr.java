@@ -9,6 +9,7 @@ import com.android.liujian.flichrphotos.model.People;
 import com.android.liujian.flichrphotos.model.Photo;
 import com.android.liujian.flichrphotos.model.Photoset;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -156,7 +157,7 @@ public class Flickr {
      * Get interesting photos
      * @return a list photos
      */
-    public List<Photo> getInterestingPhotos(){
+    public ArrayList<Photo> getInterestingPhotos(){
         /**Create a url*/
         String _url = Uri.parse(END_POINT).buildUpon()
                 .appendQueryParameter("method", INTERESTING_METHOD)
@@ -174,7 +175,7 @@ public class Flickr {
      * @param queryString  query text
      * @return a list photos
      */
-    public List<Photo> searchPhotos(String queryString){
+    public ArrayList<Photo> searchPhotos(String queryString){
         if(queryString == null) return null;
 
         String _url = Uri.parse(END_POINT).buildUpon()
@@ -193,7 +194,7 @@ public class Flickr {
      * @param queryString a topic that what you are searching
      * @return a list groups
      */
-    public List<Group> searchGroups(String queryString){
+    public ArrayList<Group> searchGroups(String queryString){
         if(queryString == null) return null;
 
         String _url = Uri.parse(END_POINT).buildUpon()
@@ -207,7 +208,7 @@ public class Flickr {
         return FlickrUtils.fetchGroups(_url);
     }
 
-    public List<Photo> getGroupPoolPhoto(String groupId){
+    public ArrayList<Photo> getGroupPoolPhoto(String groupId){
         if(groupId == null) return null;
 
         String _url = Uri.parse(END_POINT).buildUpon()
@@ -227,7 +228,7 @@ public class Flickr {
      * @param galleryId gallery id
      * @return gallery photos
      */
-    public List<Photo> getGalleryPhotos(String galleryId){
+    public ArrayList<Photo> getGalleryPhotos(String galleryId){
         String _url = Uri.parse(END_POINT).buildUpon()
                 .appendQueryParameter("method", GALLERIES_PHOTO_METHOD)
                 .appendQueryParameter("api_key", API_KEY)
@@ -245,7 +246,7 @@ public class Flickr {
      * @param userId  user id
      * @return gallery list
      */
-    public List<Gallery> getGalleryList(String userId){
+    public ArrayList<Gallery> getGalleryList(String userId){
         String _url = Uri.parse(END_POINT).buildUpon()
                 .appendQueryParameter("method", GALLERIES_LIST_METHOD)
                 .appendQueryParameter("api_key", API_KEY)
@@ -289,7 +290,7 @@ public class Flickr {
      * @param userId a user id
      * @return a list of photos
      */
-    public List<Photo> getPeoplePhotos(String userId){
+    public ArrayList<Photo> getPeoplePhotos(String userId){
         String _url = Uri.parse(END_POINT).buildUpon()
                 .appendQueryParameter("method", PEOPLE_PHOTOS_METHOD)
                 .appendQueryParameter("api_key", API_KEY)
@@ -306,7 +307,7 @@ public class Flickr {
      * @param userId user id
      * @return a list of photo
      */
-    public List<Photoset> getPhotosetsList(String userId){
+    public ArrayList<Photoset> getPhotosetsList(String userId){
         String _url = Uri.parse(END_POINT).buildUpon()
                 .appendQueryParameter("method", PHOTOSET_LIST_METHOD)
                 .appendQueryParameter("api_key", API_KEY)
@@ -324,7 +325,7 @@ public class Flickr {
      * @param userId   user id
      * @return a list of photo
      */
-    public List<Photo> getPhotosetsPhotos(String photosetId, String userId){
+    public ArrayList<Photo> getPhotosetsPhotos(String photosetId, String userId){
         String _url = Uri.parse(END_POINT).buildUpon()
                 .appendQueryParameter("method", PHOTOSET_PHOTOS_METHOD)
                 .appendQueryParameter("api_key", API_KEY)
@@ -342,7 +343,7 @@ public class Flickr {
      * @param photoId a photo id
      * @return a list of comments
      */
-    public List<Comment> getPhotoComments(String photoId){
+    public ArrayList<Comment> getPhotoComments(String photoId){
         String _url = Uri.parse(END_POINT).buildUpon()
                 .appendQueryParameter("method", PHOTO_COMMENT_METHOD)
                 .appendQueryParameter("api_key", API_KEY)
@@ -407,7 +408,7 @@ public class Flickr {
      * @param userId the user id
      * @return a list of photos
      */
-    public List<Photo> getPeopleFavPhotos(String userId){
+    public ArrayList<Photo> getPeopleFavPhotos(String userId){
         String _url = Uri.parse(END_POINT).buildUpon()
                 .appendQueryParameter("method", FAVOURITE_PHOTO_METHOD)
                 .appendQueryParameter("api_key", API_KEY)
