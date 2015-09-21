@@ -6,7 +6,5 @@
     android:layout_height="wrap_content"
     android:contentDescription="@string/photo_item"
     android:layout_marginBottom="16dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
     />
 

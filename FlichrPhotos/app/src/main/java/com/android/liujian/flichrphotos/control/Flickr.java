@@ -1,6 +1,7 @@
 package com.android.liujian.flichrphotos.control;
 
 import android.net.Uri;
+import android.util.Log;
 
 import com.android.liujian.flichrphotos.model.Comment;
 import com.android.liujian.flichrphotos.model.Gallery;
@@ -19,6 +20,7 @@ import java.util.List;
  * A flickr class for
  */
 public class Flickr {
+    private static final String TAG = "Flickr";
 
     /**Singleton uniqueInstance*/
     private static Flickr mFlickr = null;
@@ -437,6 +439,7 @@ public class Flickr {
                 .appendQueryParameter("format", OUTPUT_FORMAT)
                 .build().toString();
 
+        Log.d(TAG, "getPhotoCommentCount param : " + _url);
         return FlickrUtils.fetchPhotoCommentCount(_url);
     }
 

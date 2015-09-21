@@ -48,7 +48,7 @@ public class BigPhotoSlideFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mPhoto = (Photo)getArguments().getSerializable(FRAGMENT_ARGS_PHOTO);
-		Log.d(TAG, "Click the photo owner id: " + mPhoto.getOwnerId());
+		Log.d(TAG, "Click the photo, owner id: " + mPhoto.getOwnerId());
 	}
 
 	@Override
@@ -67,10 +67,10 @@ public class BigPhotoSlideFragment extends Fragment {
 		mBuddyicon.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				/**TODO:
-				 * Click the user buddy icon to start the user activity
-				 */
-				Toast.makeText(getActivity(), mPhotoOwner.getUserName(), Toast.LENGTH_SHORT).show();
+				//TODO: Click the user buddy icon to start the user activity
+
+				if(mPhotoOwner != null)
+					Toast.makeText(getActivity(), mPhotoOwner.getUserName(), Toast.LENGTH_SHORT).show();
 			}
 		});
 
@@ -78,7 +78,7 @@ public class BigPhotoSlideFragment extends Fragment {
 
 		BitmapManager.getInstance().loadBitmap(mPhoto.getUrl(), _imageView, R.mipmap.menu_image);
 		mPhotoInfoTask = new PhotoInfoTask();
-		mPhotoInfoTask.execute(mPhoto.getOwnerId());
+//		mPhotoInfoTask.execute(mPhoto);
 
 		_imageView.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -158,16 +158,19 @@ public class BigPhotoSlideFragment extends Fragment {
 	/**
 	 * An AsyncTask to download photo's information -- author name, author icon
 	 */
-	private final class PhotoInfoTask extends AsyncTask<String, Void, People> {
+	private  class PhotoInfoTask extends AsyncTask<Photo, Void, People> {
 		@Override
-		protected People doInBackground(String... params) {
+		protected People doInBackground(Photo... params) {
 			if(isCancelled()){
 				return null;
 			}
 
 			People _people = null;
+			Photo photo = params[0];
+			Log.d(TAG, "fetchPhotoViewInfoTask. Photo id: " + photo.getId());
 			try {
-				_people = Flickr.getInstance().findPeopleByUserId(params[0]);
+				_people = Flickr.getInstance().findPeopleByUserId(photo.getOwnerId());
+				Log.d(TAG, "AsyncTask get a people, id: " + _people.getUserName());
 			} catch (IOException e) {
 				Log.d(TAG, "Fail to get people by user id.");
 				e.printStackTrace();

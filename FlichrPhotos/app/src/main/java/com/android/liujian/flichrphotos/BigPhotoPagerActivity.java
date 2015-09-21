@@ -1,5 +1,8 @@
 package com.android.liujian.flichrphotos;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -14,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.liujian.flichrphotos.control.BitmapManager;
 import com.android.liujian.flichrphotos.control.Flickr;
 import com.android.liujian.flichrphotos.fragments.BigPhotoSlideFragment;
 import com.android.liujian.flichrphotos.model.Photo;
@@ -32,6 +36,7 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 	private TextView mPhotoFavCount;
 	private RelativeLayout mPhotoInfoContainer;
 	private ImageView mClosePhotoImage;
+	private int mPhotoPosition;
 
 	@Override
 	public void hiddenPhotoInfo() {
@@ -66,8 +71,6 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 
 		Bundle bundle = getIntent().getExtras();
 
-		Log.d(TAG, "Before get serializable.");
-
 		mPhotoList = (ArrayList<Photo>)bundle.getSerializable(BIG_PHOTO_ITEMS);
 		int position = bundle.getInt(BIG_PHOTO_POSITION);
 		
@@ -86,12 +89,21 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 		mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
 			@Override
 			public void onPageSelected(int position) {
-				super.onPageSelected(position);
-				Photo photo = ((BigPhotoSlideFragment)((FragmentStatePagerAdapter)mViewPager.getAdapter()).getItem(position)).getPhoto();
+				Log.d(TAG, "OnPagerSelected...");
 
-				if(photo != null){
-					new fetchPhotoViewInfoTask().execute(photo);
+				super.onPageSelected(position);
+				mPhotoPosition = position;
+
+//				Photo photo = ((BigPhotoSlideFragment)((FragmentStatePagerAdapter)mViewPager.getAdapter()).getItem(position)).getPhoto();
+				Photo _photo = mPhotoList.get(position);
+
+				if(_photo != null){
+					new fetchPhotoViewInfoTask().execute(_photo);
+				}else{
+					Log.d(TAG, "Photo is null..");
 				}
+
+
 
 			}
 		});
@@ -100,6 +112,37 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 
 
 	}
+
+
+	/******************************Handle some onClick events***********************************/
+
+	public void photoShare(View v){
+		//TODO: Share the photo to some other app
+		Intent shareIntent = new Intent();
+		shareIntent.setAction(Intent.ACTION_SEND);
+		shareIntent.putExtra(Intent.EXTRA_STREAM, mPhotoList.get(mPhotoPosition).getUrl());
+		shareIntent.setType("image/*");
+		startActivity(Intent.createChooser(shareIntent, "Share image to..."));
+	}
+
+
+	public void addPhotoFavourite(View v){
+		//TODO: add photo as a favourite one
+
+	}
+
+	public void showPhotoComments(View v){
+		//TODO: show photo comments
+
+	}
+
+
+	public void showPhotoInfo(View v){
+		//TODO: show photo information
+	}
+
+
+	/********************************************************************************************/
 
 
 	/**
@@ -131,8 +174,9 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 		@Override
 		protected Photo doInBackground(Photo... params) {
 			Photo photo = params[0];
-			photo.setCommentCount(String.valueOf(Flickr.getInstance().getPhotoCommentCount(photo.getId())));
+			Log.d(TAG, "fetchPhotoViewInfoTask. Photo id: " + photo.getId());
 			photo.setFavCount(String.valueOf(Flickr.getInstance().getPhotoFavCount(photo.getId())));
+			photo.setCommentCount(String.valueOf(Flickr.getInstance().getPhotoCommentCount(photo.getId())));
 
 			return photo;
 		}
@@ -140,8 +184,8 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 
 		@Override
 		protected void onPostExecute(Photo photo) {
-			mPhotoCommentCount.setText(photo.getCommentCount());
-			mPhotoFavCount.setText(photo.getFavCount());
+			mPhotoFavCount.setText(photo.getFavCount() + " Favs");
+			mPhotoCommentCount.setText(photo.getCommentCount() + " Comments");
 		}
 	}
 

@@ -34,12 +34,12 @@ public class BitmapManager {
      * The number of threads to keep in the pool, even if they are idle,
      * unless allowCoreThreadTimeOut is set
      */
-    private static final int CORE_POOL_SIZE = 3;
+    private static final int CORE_POOL_SIZE = 2;
 
     /**
      * The maximum number od threads to allow in the pool
      */
-    private static final int MAX_THREAD_POOL_SIZE = 5;
+    private static final int MAX_THREAD_POOL_SIZE = 4;
 
     /**
      * When the number of threads is greater than the core, this is the maximum time that excess
@@ -59,6 +59,15 @@ public class BitmapManager {
         mCache = new HashMap<>();
         mThreadPool = new ThreadPoolExecutor(CORE_POOL_SIZE, MAX_THREAD_POOL_SIZE, KEEP_ALIVE_TIME,
                 TimeUnit.SECONDS, new BlockingLifoDeque<Runnable>());
+    }
+
+
+    /**
+     * Get the Images in caches
+     * @return a map
+     */
+    public Map<String, SoftReference<Bitmap>>  getCacheImages(){
+        return mCache;
     }
 
 

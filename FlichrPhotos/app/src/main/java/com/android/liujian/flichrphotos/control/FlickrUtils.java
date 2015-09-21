@@ -2,7 +2,6 @@ package com.android.liujian.flichrphotos.control;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.util.Log;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -322,6 +321,9 @@ public class FlickrUtils {
         } catch (XmlPullParserException e) {
             e.printStackTrace();
         }
+
+        Log.d(TAG, "Photo favourite count: " + _favCount);
+
         return _favCount;
     }
 
@@ -382,7 +384,13 @@ public class FlickrUtils {
 
                 /**Parse a photo's fav count  from xml*/
                 if(parser.getEventType() == XmlPullParser.START_TAG && XML_COMMENTS.equals(parser.getName())){
-                    _commentCount = Integer.valueOf(parser.getText());
+                    String comments = parser.nextText();
+                    Log.d(TAG, "Comments: " + comments);
+                    if(comments != null){
+                        _commentCount = Integer.valueOf(comments);
+                    }else{
+                        _commentCount = 0;
+                    }
                     break;
                 }
 
@@ -417,11 +425,11 @@ public class FlickrUtils {
                         parser.getAttributeValue(null, "iconserver"), parser.getAttributeValue(null, "nsid"));
 
             }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_USERNAME.equals(parser.getName())){
-                people.setUserName(parser.getText());
+                people.setUserName(parser.nextText());
             }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_REALNAME.equals(parser.getName())){
-                people.setRealName(parser.getText());
+                people.setRealName(parser.nextText());
             }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_LOCATION.equals(parser.getName())){
-                people.setLocation(parser.getText());
+                people.setLocation(parser.nextText());
             }
 
             _endType = parser.next();
@@ -552,11 +560,11 @@ public class FlickrUtils {
                 _item.setViewCount(parser.getAttributeValue(null, "count_views"));
 
             }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_TITLE.equals(parser.getName()) && flag){
-                _item.setTitle(parser.getText());
+                _item.setTitle(parser.nextText());
             }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_DESCRIPTION.equals(parser.getName()) && flag){
-                _item.setDescription(parser.getText());
+                _item.setDescription(parser.nextText());
             }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_PRIMARY_PHOTO_EXTRA.equals(parser.getName()) && flag){
-                _item.setPrimaryPhotoUrl(parser.getText());
+                _item.setPrimaryPhotoUrl(parser.nextText());
             }
 
             if(parser.getEventType() == XmlPullParser.END_TAG && XML_GALLERY.equals(parser.getName()) && flag){
@@ -592,11 +600,11 @@ public class FlickrUtils {
                 _item.setViewCount(parser.getAttributeValue(null, "count_views"));
 
             }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_TITLE.equals(parser.getName()) && flag){
-                _item.setTitle(parser.getText());
+                _item.setTitle(parser.nextText());
             }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_DESCRIPTION.equals(parser.getName()) && flag){
-                _item.setDescription(parser.getText());
+                _item.setDescription(parser.nextText());
             }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_PRIMARY_PHOTO_EXTRA.equals(parser.getName()) && flag){
-                _item.setPrimaryPhotoUrl(parser.getText());
+                _item.setPrimaryPhotoUrl(parser.nextText());
             }
 
             if(parser.getEventType() == XmlPullParser.END_TAG && XML_PHOTOSET.equals(parser.getName()) && flag){
@@ -624,7 +632,7 @@ public class FlickrUtils {
                 Comment _item = new Comment();
                 _item.setCommentId(parser.getAttributeValue(null, "id"));
                 _item.setAuthorId(parser.getAttributeValue(null, "author"));
-                _item.setContent(parser.getText());
+                _item.setContent(parser.nextText());
                 comments.add(_item);
             }
 
@@ -639,11 +647,11 @@ public class FlickrUtils {
      * @throws IOException
      */
     private static byte[] getUrlBytes(String urlSpec) throws IOException {
-        Log.d(TAG, "getUrlBytes()");
+//        Log.d(TAG, "getUrlBytes()");
         URL _url = new URL(urlSpec);
         /**Open a HttpURLConnection*/
         HttpsURLConnection _connection = (HttpsURLConnection)_url.openConnection();
-        Log.d(TAG, "Http ResponseCode: " + _connection.getResponseCode());
+//        Log.d(TAG, "Http ResponseCode: " + _connection.getResponseCode());
         if(_connection.getResponseCode() != HttpsURLConnection.HTTP_OK){
             Log.d(TAG, "HTTP request failed");
             return null;
@@ -667,7 +675,7 @@ public class FlickrUtils {
             _connection.disconnect();
         }
 
-        Log.d(TAG, "Success to get bytes.");
+//        Log.d(TAG, "Success to get bytes.");
         return _out.toByteArray();
     }
 
@@ -678,7 +686,7 @@ public class FlickrUtils {
      * @throws IOException
      */
     private static String getUrl(String urlSpec) throws IOException{
-        Log.d(TAG, "getUrl()");
+//        Log.d(TAG, "getUrl()");
         byte[] bytes = getUrlBytes(urlSpec);
         return new String(bytes);
     }
