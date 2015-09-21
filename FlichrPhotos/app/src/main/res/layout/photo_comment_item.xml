@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.android.liujian.flichrphotos.view.CircleImageView
+        android:layout_width="@dimen/author_photo_height"
+        android:layout_height="@dimen/author_photo_height"
+        android:id="@+id/comment_photo_author_image"
+        android:background="@android:color/background_light"
+        app:civ_border_color="@android:color/background_light"
+        android:layout_marginRight="16dp"
+        />
+
+    <TextView
+        android:id="@+id/comment_photo_author_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_toRightOf="@id/comment_photo_author_image"
+        android:layout_alignTop="@id/comment_photo_author_image"
+        android:text="@string/photo_author_name"
+        />
+
+    <TextView
+        android:id="@+id/comment_photo_comment"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_toRightOf="@id/comment_photo_author_image"
+        android:layout_below="@id/comment_photo_author_name"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_marginTop="8dp"
+        android:text="This is a comment."/>
+
+</RelativeLayout>

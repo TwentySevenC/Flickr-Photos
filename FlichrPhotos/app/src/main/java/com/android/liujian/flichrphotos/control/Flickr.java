@@ -9,6 +9,7 @@ import com.android.liujian.flichrphotos.model.People;
 import com.android.liujian.flichrphotos.model.Photo;
 import com.android.liujian.flichrphotos.model.Photoset;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,9 @@ import java.util.List;
  * A flickr class for
  */
 public class Flickr {
+
+    /**Singleton uniqueInstance*/
+    private static Flickr mFlickr = null;
 
     /**
      * Some necessary information to get photo from the flickr
@@ -140,7 +144,7 @@ public class Flickr {
     /**
      * The constructor
      */
-    public Flickr(){
+    private Flickr(){
         //default constructor
     }
 
@@ -148,10 +152,32 @@ public class Flickr {
      * The constructor
      * @param api_key user api_key
      */
-    public Flickr(String api_key){
+    private Flickr(String api_key){
         mApiKey = api_key;
     }
 
+
+    /**
+     * A static method to get flickr instance
+     */
+    public static Flickr getInstance(){
+        if(mFlickr == null){
+            mFlickr = new Flickr();
+        }
+        return mFlickr;
+    }
+
+
+    /**
+     * A static method with parameters to get flickr instance
+     */
+    public static Flickr getInstance(String apiKey){
+        if(mFlickr == null){
+            mFlickr = new Flickr(apiKey);
+        }
+
+        return mFlickr;
+    }
 
     /**
      * Get interesting photos
@@ -263,7 +289,7 @@ public class Flickr {
      * @param username user name
      * @return a people
      */
-    public People findPeopleByUsername(String username){
+    public People findPeopleByUsername(String username) throws IOException {
 
         String _url = Uri.parse(END_POINT).buildUpon()
                 .appendQueryParameter("method", SEARCH_PEOPLE_METHOD)
@@ -272,16 +298,28 @@ public class Flickr {
                 .appendQueryParameter("format", OUTPUT_FORMAT)
                 .build().toString();
 
-        String _userId = FlickrUtils.parsePeopleId(_url);
+        return findPeopleByUserId(_url);
+    }
 
-        _url = Uri.parse(END_POINT).buildUpon()
+
+    /**
+     * Find a people by user id
+     * @param userId user id
+     * @return a people
+     * @throws IOException
+     */
+    public People findPeopleByUserId(String userId) throws IOException {
+        String _url = Uri.parse(END_POINT).buildUpon()
                 .appendQueryParameter("method", PEOPLE_INFO_METHOD)
                 .appendQueryParameter("api_key", API_KEY)
-                .appendQueryParameter("user_id", _userId)
+                .appendQueryParameter("user_id", userId)
                 .appendQueryParameter("format", OUTPUT_FORMAT)
                 .build().toString();
 
-        return FlickrUtils.fetchPeople(_url);
+        People _people = FlickrUtils.fetchPeople(_url);
+        _people.setBuddyicon(FlickrUtils.getBitmapFromUrl(_people.getBuddyiconsUrl()));
+
+        return _people;
     }
 
 

@@ -26,22 +26,23 @@
         android:layout_marginTop="25dp"
         android:layout_marginRight="16dp"
         android:src="@android:drawable/ic_input_delete"/>
-    
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="60dp"
-            android:background="#efe1ff"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"/>
+
+
 
     <RelativeLayout
+        android:id="@+id/photo_info_container"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="60dp"
         android:layout_gravity="bottom"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp">
+
+        <View
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_gravity="bottom"
+            android:background="#efe1ff"/>
 
         <ImageView
             android:layout_width="20dp"
@@ -86,6 +87,7 @@
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
+            android:layout_marginTop="16dp"
             android:layout_centerVertical="true">
 
             <TextView

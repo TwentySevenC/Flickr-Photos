@@ -24,9 +24,8 @@
         </activity>
 
         <activity
-            android:name=".BigPhotoPagerActivity">
+            android:name=".BigPhotoPagerActivity"/>
 
-        </activity>
 
 
     </application>

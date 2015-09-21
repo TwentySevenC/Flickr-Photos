@@ -132,7 +132,7 @@ public class FlickrExploreFragment extends Fragment {
         @Override
         protected ArrayList<Photo> doInBackground(Void ... params){
 
-            return new Flickr().getInterestingPhotos();
+            return Flickr.getInstance().getInterestingPhotos();
         }
 
         @Override
@@ -163,7 +163,7 @@ public class FlickrExploreFragment extends Fragment {
 
             ImageView _imageView = (ImageView)convertView.findViewById(R.id.photo_item);
 //            mThumbnailDownloader.queueThumbnail(_imageView, mItems.get(position).getUrl());
-            BitmapManager.get().loadBitmap(mItems.get(position).getUrl(), _imageView, R.mipmap.menu_image);
+            BitmapManager.getInstance().loadBitmap(mItems.get(position).getUrl(), _imageView, R.mipmap.menu_image);
             return convertView;
         }
 
@@ -179,11 +179,16 @@ public class FlickrExploreFragment extends Fragment {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
+
 			Intent intent = new Intent(getActivity(), BigPhotoPagerActivity.class);
 			Bundle bundle = new Bundle();
 
+
             bundle.putSerializable(BigPhotoPagerActivity.BIG_PHOTO_ITEMS, mItems);
+
             bundle.putInt(BigPhotoPagerActivity.BIG_PHOTO_POSITION, position);
+
+            intent.putExtras(bundle);
 			
 			startActivity(intent);
 		}

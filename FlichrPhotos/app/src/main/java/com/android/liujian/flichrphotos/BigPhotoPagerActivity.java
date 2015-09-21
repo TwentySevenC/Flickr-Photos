@@ -1,6 +1,5 @@
 package com.android.liujian.flichrphotos;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -8,9 +7,11 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.liujian.flichrphotos.control.Flickr;
@@ -20,36 +21,53 @@ import com.android.liujian.flichrphotos.model.Photo;
 
 import java.util.ArrayList;
 
-public class BigPhotoPagerActivity extends FragmentActivity {
+public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhotoSlideFragment.HiddenPhotoInfoListener{
 	private static final String TAG = "BigPhotoPagerActivity";
-	public static final String BIG_PHOTO_ITEMS = "big_photo";
+	public static final String BIG_PHOTO_ITEMS = "big_photo_items";
 	public static final String BIG_PHOTO_POSITION = "position";
 	
 	public ViewPager mViewPager;
 	private ArrayList<Photo> mPhotoList;
 	private TextView mPhotoCommentCount;
 	private TextView mPhotoFavCount;
-	
+	private RelativeLayout mPhotoInfoContainer;
+	private ImageView mClosePhotoImage;
+
+	@Override
+	public void hiddenPhotoInfo() {
+		if(mPhotoInfoContainer.getVisibility() == View.VISIBLE){
+			mPhotoInfoContainer.setVisibility(View.GONE);
+			mClosePhotoImage.setVisibility(View.GONE);
+		}else{
+			mPhotoInfoContainer.setVisibility(View.VISIBLE);
+			mClosePhotoImage.setVisibility(View.VISIBLE);
+		}
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.big_flickr_photo);
 		mViewPager = (ViewPager)findViewById(R.id.photo_pager);
-		mPhotoCommentCount = (TextView)findViewById(R.id.photo_conmments);
-		mPhotoFavCount = (TextView)findViewById(R.id.photo_favourate);
+		mPhotoCommentCount = (TextView)findViewById(R.id.photo_num_comments);
+		mPhotoFavCount = (TextView)findViewById(R.id.photo_num_faves);
+		mPhotoInfoContainer = (RelativeLayout)findViewById(R.id.photo_info_container);
+		mClosePhotoImage = (ImageView)findViewById(R.id.close_big_photo);
 		
-		ImageView bigPhotoClose = (ImageView)findViewById(R.id.close_big_photo);
-		bigPhotoClose.setOnClickListener(new OnClickListener() {
+		mClosePhotoImage = (ImageView)findViewById(R.id.close_big_photo);
+		mClosePhotoImage.setOnClickListener(new OnClickListener() {
 			/**Close big photo*/
 			@Override
 			public void onClick(View v) {
 				finish();
 			}
 		});
-		
-		Intent intent = getIntent();
-		Bundle bundle = intent.getExtras();
+
+		Bundle bundle = getIntent().getExtras();
+
+		Log.d(TAG, "Before get serializable.");
+
 		mPhotoList = (ArrayList<Photo>)bundle.getSerializable(BIG_PHOTO_ITEMS);
 		int position = bundle.getInt(BIG_PHOTO_POSITION);
 		
@@ -113,8 +131,8 @@ public class BigPhotoPagerActivity extends FragmentActivity {
 		@Override
 		protected Photo doInBackground(Photo... params) {
 			Photo photo = params[0];
-			photo.setCommentCount(String.valueOf(new Flickr().getPhotoCommentCount(photo.getId())));
-			photo.setFavCount(String.valueOf(new Flickr().getPhotoFavCount(photo.getId())));
+			photo.setCommentCount(String.valueOf(Flickr.getInstance().getPhotoCommentCount(photo.getId())));
+			photo.setFavCount(String.valueOf(Flickr.getInstance().getPhotoFavCount(photo.getId())));
 
 			return photo;
 		}

@@ -47,8 +47,9 @@ public class BitmapManager {
      */
     private static final long KEEP_ALIVE_TIME = 2;
 
-
+    /**A singleton instance*/
     private static BitmapManager mBitmapManager = null;
+
     private final Map<String,SoftReference<Bitmap>> mCache;
     private ThreadPoolExecutor mThreadPool;
     private final Map<ImageView, String> mImageViews =
@@ -61,7 +62,8 @@ public class BitmapManager {
     }
 
 
-    public static BitmapManager get(){
+    /**Get a singleton instance*/
+    public static BitmapManager getInstance(){
         if(mBitmapManager == null){
             mBitmapManager = new BitmapManager();
         }
@@ -159,7 +161,8 @@ public class BitmapManager {
     private Bitmap downloadBitmap(String url){
 
         try {
-            Bitmap _bitmap = BitmapFactory.decodeStream((InputStream) new URL(url).getContent());
+//            Bitmap _bitmap = BitmapFactory.decodeStream((InputStream) new URL(url).getContent());
+            Bitmap _bitmap = FlickrUtils.getBitmapFromUrl(url);
             mCache.put(url, new SoftReference<>(_bitmap));
             return _bitmap;
         } catch (IOException e) {
