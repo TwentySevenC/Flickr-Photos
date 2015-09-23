@@ -1,6 +1,7 @@
 package com.android.liujian.flichrphotos.model;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 /**
  * Created by liujian on 15/9/11.
@@ -67,11 +68,12 @@ public class People {
 
 
     /**
-     * http://farm{icon-farm}.staticflickr.com/{icon-server}/buddyicons/{nsid}.jpg
+     * https://farm{icon-farm}.staticflickr.com/{icon-server}/buddyicons/{nsid}.jpg
      */
     public void setBuddyIconsUrl(String iconfarm, String iconserver, String nsid){
-        mBuddyiconsUrl = "http://farm" + iconfarm + ".staticflickr.com/" + iconserver + "/buddyicons/"
+        mBuddyiconsUrl = "https://farm" + iconfarm + ".staticflickr.com/" + iconserver + "/buddyicons/"
                 + nsid + ".jpg";
+        Log.d("People icon", "BudddyIcon url: " +  mBuddyiconsUrl);
     }
 
     public String getBuddyiconsUrl(){

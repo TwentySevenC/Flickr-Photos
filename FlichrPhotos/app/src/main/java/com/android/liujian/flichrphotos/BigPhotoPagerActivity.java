@@ -3,6 +3,7 @@ package com.android.liujian.flichrphotos;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -16,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.liujian.flichrphotos.control.Flickr;
+import com.android.liujian.flichrphotos.control.PeopleDownloader;
 import com.android.liujian.flichrphotos.fragments.BigPhotoSlideFragment;
 import com.android.liujian.flichrphotos.model.Photo;
 
@@ -34,6 +36,8 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 	private RelativeLayout mPhotoInfoContainer;
 	private ImageView mClosePhotoImage;
 	private int mPhotoPosition;
+
+	private PeopleDownloader mPeopleDownloader;
 
 	@Override
 	public void hiddenPhotoInfo(boolean isHidden) {
@@ -72,18 +76,25 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 		int position = bundle.getInt(BIG_PHOTO_POSITION);
 		
 		FragmentManager fm = getSupportFragmentManager();
-		/*Fragment fragment = fm.findFragmentById(R.id.big_photo_container);
-		
-		if(fragment == null){
-			fragment = BigPhotoSlideFragment.newInstance(_photo);
-			fm.beginTransaction()
-			  .add(R.id.big_photo_container, fragment)
-			  .commit();
-		}*/
+
+
+
+		/**Start the PeopleDownloader thread if the downloader was not started yet*/
+		mPeopleDownloader = PeopleDownloader.getDownloader();
+
+		if(mPeopleDownloader == null){
+			mPeopleDownloader = PeopleDownloader.getInstance(new Handler());
+			mPeopleDownloader.start();
+			mPeopleDownloader.getLooper();
+		}
+
+
+		Log.d(TAG, "PeopleDownloader started...");
+
 
 		mViewPager.setAdapter(new BigPhotoPagerAdapter(fm));
 
-		mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+		mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 			@Override
 			public void onPageSelected(int position) {
 				Log.d(TAG, "OnPagerSelected...");
@@ -91,15 +102,12 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 				super.onPageSelected(position);
 				mPhotoPosition = position;
 
-//				Photo photo = ((BigPhotoSlideFragment)((FragmentStatePagerAdapter)mViewPager.getAdapter()).getItem(position)).getPhoto();
 				Photo _photo = mPhotoList.get(position);
 
-				if(_photo != null){
+				if (_photo != null) {
 					new fetchPhotoViewInfoTask().execute(_photo);
-				}else{
-					Log.d(TAG, "Photo is null..");
-				}
 
+				}
 
 
 			}
@@ -110,6 +118,11 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 
 	}
 
+	@Override
+	protected void onDestroy() {
+		mPeopleDownloader.reset();
+		super.onDestroy();
+	}
 
 	/******************************Handle some onClick events***********************************/
 
@@ -154,7 +167,14 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 		@Override
 		public Fragment getItem(int position) {
 			Photo _photo = mPhotoList.get(position);
-			return BigPhotoSlideFragment.newInstance(_photo);
+
+			BigPhotoSlideFragment _fragment = BigPhotoSlideFragment.newInstance(_photo);
+
+			if(PeopleDownloader.getDownloader() != null && PeopleDownloader.getDownloader().isModelInCache(_photo.getOwnerId())){
+				_fragment.setAuthorProfile(_photo.getOwnerId(), PeopleDownloader.getDownloader().getModelFromCache(_photo.getOwnerId()));
+			}
+
+			return _fragment;
 		}
 
 		@Override
@@ -172,10 +192,18 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 		protected Photo doInBackground(Photo... params) {
 			Photo photo = params[0];
 			Log.d(TAG, "fetchPhotoViewInfoTask. Photo id: " + photo.getId());
-			photo.setFavCount(String.valueOf(Flickr.getInstance().getPhotoFavCount(photo.getId())));
-			photo.setCommentCount(String.valueOf(Flickr.getInstance().getPhotoCommentCount(photo.getId())));
+			if(photo.getCommentCount() != null){
 
-			return photo;
+				return photo;
+
+			}else{
+
+				photo.setFavCount(String.valueOf(Flickr.getInstance().getPhotoFavCount(photo.getId())));
+				photo.setCommentCount(String.valueOf(Flickr.getInstance().getPhotoCommentCount(photo.getId())));
+
+				return photo;
+			}
+
 		}
 
 

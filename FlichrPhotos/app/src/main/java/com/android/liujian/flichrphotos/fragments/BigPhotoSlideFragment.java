@@ -33,9 +33,9 @@ public class BigPhotoSlideFragment extends Fragment {
 	private People mPhotoOwner;
 	private ImageView mBuddyicon;
 	private TextView mAuthorName;
-//	private AsyncTask mPhotoInfoTask;
 	private TextView mPhotoTitle;
 	private HiddenPhotoInfoListener mHiddenPhotoInfoListener;
+
 	private PeopleDownloader mPeopleDownloader;
 
 	public interface HiddenPhotoInfoListener {
@@ -52,22 +52,29 @@ public class BigPhotoSlideFragment extends Fragment {
 		mPhoto = (Photo)getArguments().getSerializable(FRAGMENT_ARGS_PHOTO);
 		Log.d(TAG, "Click the photo, owner id: " + mPhoto.getOwnerId());
 
-		/**Start a the Handler thread*/
-		mPeopleDownloader = PeopleDownloader.getInstance(new Handler());
+		/**Get the people downloader thread*/
+		mPeopleDownloader = PeopleDownloader.getDownloader();
+
+		if(mPeopleDownloader == null){
+			throw new NullPointerException("The PeopleDownloader instance must be created first...");
+		}
+
 		mPeopleDownloader.setOnPeopleDownloadListener(new PeopleDownloader.OnPeopleDownloadListener() {
 			@Override
 			public void setAuthorProfile(String userId, Bitmap bitmap, String name) {
-				if(isVisible()){
+				if (isVisible()) {
 
-					if(userId != getPhoto().getOwnerId())
-						return ;
+					if (!userId.equals(getPhoto().getOwnerId()))
+						return;
 
-					if(bitmap != null){
-						mBuddyicon.setImageBitmap(bitmap);
-					}
-					if(name != null){
+					if (name != null) {
 						mAuthorName.setText(name);
 					}
+
+					if (bitmap != null) {
+						mBuddyicon.setImageBitmap(bitmap);
+					}
+
 				}
 			}
 		});
@@ -99,12 +106,9 @@ public class BigPhotoSlideFragment extends Fragment {
 
 
 
-		BitmapDownloader.getInstance().load(mPhoto.getUrl(), _imageView, R.mipmap.menu_image);
+		BitmapDownloader.getInstance().load(mPhoto.getUrl(), R.mipmap.default_image, _imageView);
+		mPeopleDownloader.load(mPhoto.getOwnerId(), R.mipmap.default_image, mAuthorName, mBuddyicon);
 
-		/*mPhotoInfoTask = new PhotoInfoTask();
-		Log.d(TAG, "Before the PhotoInfoTask execute.");
-		if(mPhoto != null)
-			mPhotoInfoTask.execute(mPhoto);*/
 
 		_imageView.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -121,8 +125,8 @@ public class BigPhotoSlideFragment extends Fragment {
 	 * Initialize a new fragment
 	 * @return a fragment
 	 */
-	public static Fragment newInstance(Photo photo){
-		Fragment fragment = new BigPhotoSlideFragment();
+	public static BigPhotoSlideFragment newInstance(Photo photo){
+		BigPhotoSlideFragment fragment = new BigPhotoSlideFragment();
 		Bundle bundle = new Bundle();
 		bundle.putSerializable(FRAGMENT_ARGS_PHOTO, photo);
 		fragment.setArguments(bundle);
@@ -131,7 +135,6 @@ public class BigPhotoSlideFragment extends Fragment {
 
 	@Override
 	public void onDestroyView() {
-//		mPhotoInfoTask.cancel(false);
 		super.onDestroyView();
 	}
 
@@ -141,19 +144,8 @@ public class BigPhotoSlideFragment extends Fragment {
 		super.onAttach(activity);
 
 		/**Set hidden photo information listener*/
-		setOnHiddenPhotoInfoListener((HiddenPhotoInfoListener)activity);
+		setOnHiddenPhotoInfoListener((HiddenPhotoInfoListener) activity);
 	}
-
-	/**
-     * A method to get Bitmap thought a url
-     * @param url a url refer to a photo
-     * @return a photo
-     * @throws IOException
-     */
-    private Bitmap getBitmap(String url) throws IOException{
-
-        return FlickrUtils.getBitmapFromUrl(url);
-    }
 
 
 	/**
@@ -162,6 +154,26 @@ public class BigPhotoSlideFragment extends Fragment {
 	public Photo getPhoto(){
 		return mPhoto;
 	}
+
+
+	/**
+	 * Set the profile of photo's owner
+	 * @param userId  photo owner's id
+	 * @param people people
+	 */
+	public void setAuthorProfile(String userId, People people){
+		if (isVisible()) {
+
+			if (!userId.equals(getPhoto().getOwnerId()))
+				return;
+
+			mBuddyicon.setImageBitmap(people.getBuddyicon());
+			mAuthorName.setText(people.getRealName());
+
+		}
+	}
+
+
 
 
 	/**

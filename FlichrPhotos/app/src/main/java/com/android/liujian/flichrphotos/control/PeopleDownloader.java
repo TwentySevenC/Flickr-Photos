@@ -5,7 +5,9 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.liujian.flichrphotos.model.People;
 
@@ -43,6 +45,10 @@ public class PeopleDownloader extends HandlerThread implements IDownloader<Peopl
         mUIThreadHandler = handler;
     }
 
+    //Check when the thread was started
+    static {
+        Log.d(TAG, "PeopleDownloader started..");
+    }
 
     /**
      * Get a PeopleDownloader instance
@@ -53,6 +59,15 @@ public class PeopleDownloader extends HandlerThread implements IDownloader<Peopl
         if(mPeopleDownloader == null){
             mPeopleDownloader = new PeopleDownloader(handler);
         }
+        return mPeopleDownloader;
+    }
+
+
+    /**
+     * Get the already created instance
+     * @return the PeopleDownloader class
+     */
+    public static PeopleDownloader getDownloader(){
         return mPeopleDownloader;
     }
 
@@ -74,6 +89,7 @@ public class PeopleDownloader extends HandlerThread implements IDownloader<Peopl
     @Override
     protected void onLooperPrepared() {
         super.onLooperPrepared();
+
         mDownloadHandler = new DownloadHandler();
     }
 
@@ -105,23 +121,27 @@ public class PeopleDownloader extends HandlerThread implements IDownloader<Peopl
 
 
     @Override
-    public void load(String userId, ImageView imageView, int resourceId) {
-        mImageViews.put(imageView, userId);
+    public void load(String userId, int resourceId,  View ... imageView) {
+        mImageViews.put((ImageView)imageView[1], userId);
 
         People _people = getModelFromCache(userId);
 
+        Log.d(TAG, "load()");
+
         if(_people != null){
-            imageView.setImageBitmap(_people.getBuddyicon());
+            ((TextView)imageView[0]).setText(_people.getRealName());
+            Log.d(TAG, "load() people realname: " + _people.getRealName());
+            ((ImageView)imageView[1]).setImageBitmap(_people.getBuddyicon());
         }else{
-            imageView.setImageResource(resourceId);
-            queueJob(userId, imageView, resourceId);
+            ((ImageView)imageView[1]).setImageResource(resourceId);
+            queueJob(userId, resourceId, (ImageView)imageView[1]);
         }
     }
 
 
     /**Send a message to handler*/
     @Override
-    public void queueJob(String key, ImageView imageView, int resourceId) {
+    public void queueJob(String userId, int resourceId, ImageView imageView) {
         //TODO: Obtain a message and send to handler
 
         mDownloadHandler.obtainMessage(MESSAGE_WHAT, imageView).sendToTarget();
@@ -157,10 +177,20 @@ public class PeopleDownloader extends HandlerThread implements IDownloader<Peopl
      */
     @Override
     public People getModelFromCache(String userId) {
-        if(mCache.containsKey(userId)){
+        if(isModelInCache(userId)){
             return mCache.get(userId).get();
         }
         return null;
+    }
+
+
+    /**
+     *
+     * @param userId user id
+     * @return true or false
+     */
+    public boolean isModelInCache(String userId){
+        return mCache.containsKey(userId);
     }
 
 

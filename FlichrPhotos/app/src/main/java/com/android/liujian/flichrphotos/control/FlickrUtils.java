@@ -430,6 +430,7 @@ public class FlickrUtils {
                 people.setRealName(parser.nextText());
             }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_LOCATION.equals(parser.getName())){
                 people.setLocation(parser.nextText());
+                break;
             }
 
             _endType = parser.next();

@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import java.io.IOException;
@@ -99,21 +100,20 @@ public class BitmapDownloader implements IDownloader<Bitmap>{
      * Load image
      * @param url url
      * @param imageView imageView
-     * @param placeHolder default image
      */
     @Override
-    public void load(String url, ImageView imageView, int placeHolder){
-        mImageViews.put(imageView, url);
+    public void load(String url, int reourceId, View ... imageView){
+        mImageViews.put((ImageView)imageView[0], url);
 
         Bitmap _bitmap = getModelFromCache(url);
 
         if(_bitmap != null){
-            imageView.setImageBitmap(_bitmap);
+            ((ImageView)imageView[0]).setImageBitmap(_bitmap);
             Log.d(TAG, "Get bitmap from cache..");
         }else{
-            imageView.setImageResource(placeHolder);
-            queueJob(url, imageView, placeHolder);
             Log.d(TAG, "Get bitmap from network..");
+            ((ImageView)imageView[0]).setImageResource(reourceId);
+            queueJob(url, reourceId, (ImageView) imageView[0]);
         }
     }
 
@@ -122,10 +122,9 @@ public class BitmapDownloader implements IDownloader<Bitmap>{
      * Put the task in a message queue
      * @param url url
      * @param imageView imageView
-     * @param resourceId default image id
      */
     @Override
-    public void queueJob(final String url, final ImageView imageView, final int resourceId){
+    public void queueJob(final String url, final int resourceId, final ImageView imageView){
 
         /**Create a handler in UI thread*/
         final Handler _handler = new Handler(){

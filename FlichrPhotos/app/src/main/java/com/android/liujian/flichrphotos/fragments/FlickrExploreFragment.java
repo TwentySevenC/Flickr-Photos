@@ -113,9 +113,6 @@ public class FlickrExploreFragment extends Fragment {
 
     @Override
     public void onDestroy(){
-        /**Quit the handler thread*/
-//        mThumbnailDownloader.quit();
-//        mThumbnailDownloader = null;
 
         super.onDestroy();
     }
@@ -123,7 +120,7 @@ public class FlickrExploreFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-//        mThumbnailDownloader.clearQueue();
+//
         super.onDestroyView();
     }
 
@@ -161,8 +158,8 @@ public class FlickrExploreFragment extends Fragment {
             }
 
             ImageView _imageView = (ImageView)convertView.findViewById(R.id.photo_item);
-//            mThumbnailDownloader.queueThumbnail(_imageView, mItems.get(position).getUrl());
-            BitmapDownloader.getInstance().load(mItems.get(position).getUrl(), _imageView, R.mipmap.menu_image);
+
+            BitmapDownloader.getInstance().load(mItems.get(position).getUrl(), R.mipmap.default_image, _imageView);
             return convertView;
         }
 

@@ -1,5 +1,6 @@
 package com.android.liujian.flichrphotos.control;
 
+import android.view.View;
 import android.widget.ImageView;
 
 /**
@@ -8,9 +9,9 @@ import android.widget.ImageView;
  */
 public interface IDownloader<Model> {
 
-    void load(final String key, final ImageView imageView, final int placeHolder);
+    void load(final String key, final int resourceId, final View ... imageView);
 
-    void queueJob(String key, ImageView imageView, int placeHolder);
+    void queueJob(String key, int resourceId, ImageView imageView);
 
     Model downloadModel(String key);
 
