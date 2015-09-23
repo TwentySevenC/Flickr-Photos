@@ -19,11 +19,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.android.liujian.flichrphotos.BigPhotoPagerActivity;
-import com.android.liujian.flichrphotos.control.BitmapManager;
+import com.android.liujian.flichrphotos.control.BitmapDownloader;
 import com.android.liujian.flichrphotos.control.Flickr;
 import com.android.liujian.flichrphotos.model.Photo;
 import com.android.liujian.flichrphotos.R;
-import com.android.liujian.flichrphotos.control.ThumbnailDownloader;
 
 
 /**
@@ -163,7 +162,7 @@ public class FlickrExploreFragment extends Fragment {
 
             ImageView _imageView = (ImageView)convertView.findViewById(R.id.photo_item);
 //            mThumbnailDownloader.queueThumbnail(_imageView, mItems.get(position).getUrl());
-            BitmapManager.getInstance().loadBitmap(mItems.get(position).getUrl(), _imageView, R.mipmap.menu_image);
+            BitmapDownloader.getInstance().load(mItems.get(position).getUrl(), _imageView, R.mipmap.menu_image);
             return convertView;
         }
 

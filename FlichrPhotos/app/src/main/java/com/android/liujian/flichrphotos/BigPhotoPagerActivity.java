@@ -1,8 +1,6 @@
 package com.android.liujian.flichrphotos;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -17,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.android.liujian.flichrphotos.control.BitmapManager;
 import com.android.liujian.flichrphotos.control.Flickr;
 import com.android.liujian.flichrphotos.fragments.BigPhotoSlideFragment;
 import com.android.liujian.flichrphotos.model.Photo;
@@ -39,8 +36,8 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 	private int mPhotoPosition;
 
 	@Override
-	public void hiddenPhotoInfo() {
-		if(mPhotoInfoContainer.getVisibility() == View.VISIBLE){
+	public void hiddenPhotoInfo(boolean isHidden) {
+		if(isHidden){
 			mPhotoInfoContainer.setVisibility(View.GONE);
 			mClosePhotoImage.setVisibility(View.GONE);
 		}else{

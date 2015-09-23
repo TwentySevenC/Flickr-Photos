@@ -3,14 +3,15 @@ package com.android.liujian.flichrphotos.fragments;
 import java.io.IOException;
 
 import com.android.liujian.flichrphotos.R;
-import com.android.liujian.flichrphotos.control.BitmapManager;
+import com.android.liujian.flichrphotos.control.BitmapDownloader;
 import com.android.liujian.flichrphotos.control.Flickr;
 import com.android.liujian.flichrphotos.control.FlickrUtils;
+import com.android.liujian.flichrphotos.control.PeopleDownloader;
 import com.android.liujian.flichrphotos.model.People;
 import com.android.liujian.flichrphotos.model.Photo;
 
 import android.app.Activity;
-import android.content.Context;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -32,12 +33,13 @@ public class BigPhotoSlideFragment extends Fragment {
 	private People mPhotoOwner;
 	private ImageView mBuddyicon;
 	private TextView mAuthorName;
-	private AsyncTask mPhotoInfoTask;
+//	private AsyncTask mPhotoInfoTask;
 	private TextView mPhotoTitle;
 	private HiddenPhotoInfoListener mHiddenPhotoInfoListener;
+	private PeopleDownloader mPeopleDownloader;
 
 	public interface HiddenPhotoInfoListener {
-		void hiddenPhotoInfo();
+		void hiddenPhotoInfo(boolean flag);
 	}
 
 	private void setOnHiddenPhotoInfoListener(HiddenPhotoInfoListener listener){
@@ -49,6 +51,27 @@ public class BigPhotoSlideFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 		mPhoto = (Photo)getArguments().getSerializable(FRAGMENT_ARGS_PHOTO);
 		Log.d(TAG, "Click the photo, owner id: " + mPhoto.getOwnerId());
+
+		/**Start a the Handler thread*/
+		mPeopleDownloader = PeopleDownloader.getInstance(new Handler());
+		mPeopleDownloader.setOnPeopleDownloadListener(new PeopleDownloader.OnPeopleDownloadListener() {
+			@Override
+			public void setAuthorProfile(String userId, Bitmap bitmap, String name) {
+				if(isVisible()){
+
+					if(userId != getPhoto().getOwnerId())
+						return ;
+
+					if(bitmap != null){
+						mBuddyicon.setImageBitmap(bitmap);
+					}
+					if(name != null){
+						mAuthorName.setText(name);
+					}
+				}
+			}
+		});
+
 	}
 
 	@Override
@@ -69,22 +92,25 @@ public class BigPhotoSlideFragment extends Fragment {
 			public void onClick(View v) {
 				//TODO: Click the user buddy icon to start the user activity
 
-				if(mPhotoOwner != null)
+				if (mPhotoOwner != null)
 					Toast.makeText(getActivity(), mPhotoOwner.getUserName(), Toast.LENGTH_SHORT).show();
 			}
 		});
 
 
 
-		BitmapManager.getInstance().loadBitmap(mPhoto.getUrl(), _imageView, R.mipmap.menu_image);
-		mPhotoInfoTask = new PhotoInfoTask();
-//		mPhotoInfoTask.execute(mPhoto);
+		BitmapDownloader.getInstance().load(mPhoto.getUrl(), _imageView, R.mipmap.menu_image);
+
+		/*mPhotoInfoTask = new PhotoInfoTask();
+		Log.d(TAG, "Before the PhotoInfoTask execute.");
+		if(mPhoto != null)
+			mPhotoInfoTask.execute(mPhoto);*/
 
 		_imageView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				hiddenPhotoInfo();
-				mHiddenPhotoInfoListener.hiddenPhotoInfo();
+				boolean isHidden = hiddenPhotoInfo();
+				mHiddenPhotoInfoListener.hiddenPhotoInfo(isHidden);
 			}
 		});
 
@@ -105,7 +131,7 @@ public class BigPhotoSlideFragment extends Fragment {
 
 	@Override
 	public void onDestroyView() {
-		mPhotoInfoTask.cancel(false);
+//		mPhotoInfoTask.cancel(false);
 		super.onDestroyView();
 	}
 
@@ -141,15 +167,17 @@ public class BigPhotoSlideFragment extends Fragment {
 	/**
 	 * When user click the big photo, hidden the photo's information
 	 */
-	private void hiddenPhotoInfo(){
+	private boolean hiddenPhotoInfo(){
 		if(mPhotoTitle.getVisibility()  == View.VISIBLE){
 			mPhotoTitle.setVisibility(View.GONE);
 			mAuthorName.setVisibility(View.GONE);
 			mBuddyicon.setVisibility(View.GONE);
+			return true;
 		}else{
 			mPhotoTitle.setVisibility(View.VISIBLE);
 			mAuthorName.setVisibility(View.VISIBLE);
 			mBuddyicon.setVisibility(View.VISIBLE);
+			return false;
 		}
 
 	}
@@ -158,7 +186,8 @@ public class BigPhotoSlideFragment extends Fragment {
 	/**
 	 * An AsyncTask to download photo's information -- author name, author icon
 	 */
-	private  class PhotoInfoTask extends AsyncTask<Photo, Void, People> {
+
+	private class PhotoInfoTask extends AsyncTask<Photo, Void, People>{
 		@Override
 		protected People doInBackground(Photo... params) {
 			if(isCancelled()){
@@ -178,6 +207,7 @@ public class BigPhotoSlideFragment extends Fragment {
 
 			return _people;
 		}
+
 
 		@Override
 		protected void onPostExecute(People people) {
