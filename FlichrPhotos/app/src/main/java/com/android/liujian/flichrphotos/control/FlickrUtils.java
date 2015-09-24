@@ -4,10 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
 import com.android.liujian.flichrphotos.model.Comment;
 import com.android.liujian.flichrphotos.model.Gallery;
 import com.android.liujian.flichrphotos.model.Group;
@@ -15,13 +11,16 @@ import com.android.liujian.flichrphotos.model.People;
 import com.android.liujian.flichrphotos.model.Photo;
 import com.android.liujian.flichrphotos.model.Photoset;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -95,7 +94,7 @@ public class FlickrUtils {
     /**
      * Xml primary photo extra tag
      */
-    private static final String XML_PRIMARY_PHOTO_EXTRA = "primary_photo_extra";
+    private static final String XML_PRIMARY_PHOTO_EXTRA = "primary_photo_extras";
 
     /**
      * Xml comment tag
@@ -177,7 +176,6 @@ public class FlickrUtils {
         ArrayList<Gallery> _galleries = new ArrayList<>();
         try{
             String _xmlString = getUrl(url);
-//            Log.i(TAG, "Get the items: " + _xmlString);
 
 
             /**Create a xmlPullParser*/
@@ -544,32 +542,28 @@ public class FlickrUtils {
      */
     private static void parseGalleries(ArrayList<Gallery> galleries, XmlPullParser parser) throws IOException, XmlPullParserException {
         int _endType = parser.next();
-        boolean flag = false;
+        Gallery _item = new Gallery();
 
         while(XmlPullParser.END_DOCUMENT != _endType){
-            Gallery _item = new Gallery();
 
             /**Parse a gallery item from xml*/
             if(parser.getEventType() == XmlPullParser.START_TAG && XML_GALLERY.equals(parser.getName())){
-                flag = true;
                 _item.setId(parser.getAttributeValue(null, "id"));
-                _item.setUrl(parser.getAttributeValue(null, "url"));
+//                _item.setUrl(parser.getAttributeValue(null, "url"));
                 _item.setOwnerId(parser.getAttributeValue(null, "owner"));
-                _item.setOwnerName(parser.getAttributeValue(null, "username"));
+//                _item.setOwnerName(parser.getAttributeValue(null, "username"));
                 _item.setPhotoCount(parser.getAttributeValue(null, "count_photos"));
                 _item.setCommentCount(parser.getAttributeValue(null, "count_comments"));
                 _item.setViewCount(parser.getAttributeValue(null, "count_views"));
 
-            }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_TITLE.equals(parser.getName()) && flag){
+            }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_TITLE.equals(parser.getName())){
                 _item.setTitle(parser.nextText());
-            }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_DESCRIPTION.equals(parser.getName()) && flag){
+            }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_DESCRIPTION.equals(parser.getName())){
                 _item.setDescription(parser.nextText());
-            }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_PRIMARY_PHOTO_EXTRA.equals(parser.getName()) && flag){
-                _item.setPrimaryPhotoUrl(parser.nextText());
-            }
-
-            if(parser.getEventType() == XmlPullParser.END_TAG && XML_GALLERY.equals(parser.getName()) && flag){
+            }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_PRIMARY_PHOTO_EXTRA.equals(parser.getName())){
+                _item.setPrimaryPhotoUrl(parser.getAttributeValue(null, "url_s"));
                 galleries.add(_item);
+                _item = new Gallery();
             }
 
             _endType = parser.next();
@@ -587,30 +581,27 @@ public class FlickrUtils {
      */
     private static void parsePhotosets(ArrayList<Photoset> photosets, XmlPullParser parser) throws IOException, XmlPullParserException {
         int _endType = parser.next();
-        boolean flag = false;
+        Photoset _item = new Photoset();
 
         while(XmlPullParser.END_DOCUMENT != _endType){
-            Photoset _item = new Photoset();
 
             /**Parse a photoset item from xml*/
             if(parser.getEventType() == XmlPullParser.START_TAG && XML_PHOTOSET.equals(parser.getName())){
-                flag = true;
                 _item.setId(parser.getAttributeValue(null, "id"));
                 _item.setPhotoCount(parser.getAttributeValue(null, "photos"));
                 _item.setCommentCount(parser.getAttributeValue(null, "count_comments"));
                 _item.setViewCount(parser.getAttributeValue(null, "count_views"));
 
-            }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_TITLE.equals(parser.getName()) && flag){
+            }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_TITLE.equals(parser.getName())){
                 _item.setTitle(parser.nextText());
-            }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_DESCRIPTION.equals(parser.getName()) && flag){
+            }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_DESCRIPTION.equals(parser.getName())){
                 _item.setDescription(parser.nextText());
-            }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_PRIMARY_PHOTO_EXTRA.equals(parser.getName()) && flag){
-                _item.setPrimaryPhotoUrl(parser.nextText());
+            }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_PRIMARY_PHOTO_EXTRA.equals(parser.getName())){
+                _item.setPrimaryPhotoUrl(parser.getAttributeValue(null, "url_s"));
+                photosets.add(_item);
+                _item = new Photoset();
             }
 
-            if(parser.getEventType() == XmlPullParser.END_TAG && XML_PHOTOSET.equals(parser.getName()) && flag){
-                photosets.add(_item);
-            }
 
             _endType = parser.next();
         }

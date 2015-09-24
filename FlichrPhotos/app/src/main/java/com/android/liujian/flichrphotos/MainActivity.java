@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.android.liujian.flichrphotos.fragments.FlickrGalleryFragment;
 import com.android.liujian.flichrphotos.fragments.MenuListFragment.IMenu;
 import com.android.liujian.flichrphotos.fragments.FlickrExploreFragment;
 import com.android.liujian.flichrphotos.view.SlidingMenu;
@@ -30,7 +31,7 @@ public class MainActivity extends Activity implements IMenu{
         FragmentManager fm = getFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.content_fragment_container);
         if(fragment == null){
-        	fragment = new FlickrExploreFragment();
+        	fragment = new FlickrGalleryFragment();
         	fm.beginTransaction().
         	add(R.id.content_fragment_container, fragment)
         	.commit();

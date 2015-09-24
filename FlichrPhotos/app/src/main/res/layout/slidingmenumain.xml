@@ -5,7 +5,7 @@
     android:id="@+id/slidingmenumain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    sliding:viewAbove="@layout/content"
+    sliding:viewAbove="@layout/activity_main_content"
     sliding:viewBehind="@layout/fragment_menu"
     sliding:behindScrollScale="1"
     sliding:touchModeAbove="margin"

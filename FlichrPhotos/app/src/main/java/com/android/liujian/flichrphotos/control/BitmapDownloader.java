@@ -31,12 +31,12 @@ public class BitmapDownloader implements IDownloader<Bitmap>{
      * The number of threads to keep in the pool, even if they are idle,
      * unless allowCoreThreadTimeOut is set
      */
-    private static final int CORE_POOL_SIZE = 2;
+    private static final int CORE_POOL_SIZE = 3;
 
     /**
      * The maximum number od threads to allow in the pool
      */
-    private static final int MAX_THREAD_POOL_SIZE = 4;
+    private static final int MAX_THREAD_POOL_SIZE = 5;
 
     /**
      * When the number of threads is greater than the core, this is the maximum time that excess
@@ -102,7 +102,7 @@ public class BitmapDownloader implements IDownloader<Bitmap>{
      * @param imageView imageView
      */
     @Override
-    public void load(String url, int reourceId, View ... imageView){
+    public void load(String url, int resourceId, View ... imageView){
         mImageViews.put((ImageView)imageView[0], url);
 
         Bitmap _bitmap = getModelFromCache(url);
@@ -111,9 +111,10 @@ public class BitmapDownloader implements IDownloader<Bitmap>{
             ((ImageView)imageView[0]).setImageBitmap(_bitmap);
             Log.d(TAG, "Get bitmap from cache..");
         }else{
-            Log.d(TAG, "Get bitmap from network..");
-            ((ImageView)imageView[0]).setImageResource(reourceId);
-            queueJob(url, reourceId, (ImageView) imageView[0]);
+            Log.d(TAG, "Get bitmap from network: " + url);
+
+            ((ImageView)imageView[0]).setImageResource(resourceId);
+            queueJob(url, resourceId, (ImageView) imageView[0]);
         }
     }
 

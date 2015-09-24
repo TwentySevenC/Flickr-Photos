@@ -23,6 +23,7 @@ import com.android.liujian.flichrphotos.model.Photo;
 
 
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
 
 public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhotoSlideFragment.HiddenPhotoInfoListener{
 	private static final String TAG = "BigPhotoPagerActivity";
@@ -105,10 +106,14 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 				Photo _photo = mPhotoList.get(position);
 
 				if (_photo != null) {
-					new fetchPhotoViewInfoTask().execute(_photo);
+					if(_photo.getCommentCount() != null){
+						setPhotoFavCommentCount(_photo);
+					}else{
+//						new fetchPhotoViewInfoTask().execute(_photo);
+						new fetchPhotoViewInfoTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, _photo);
+					}
 
 				}
-
 
 			}
 		});
@@ -123,6 +128,17 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 		mPeopleDownloader.reset();
 		super.onDestroy();
 	}
+
+
+	/**
+	 * Set photo faves count and comment count
+	 * @param photo photo
+	 */
+	public void setPhotoFavCommentCount(Photo photo){
+		mPhotoFavCount.setText(photo.getFavCount() + " Favs");
+		mPhotoCommentCount.setText(photo.getCommentCount() + " Comments");
+	}
+
 
 	/******************************Handle some onClick events***********************************/
 
@@ -191,26 +207,19 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 		@Override
 		protected Photo doInBackground(Photo... params) {
 			Photo photo = params[0];
-			Log.d(TAG, "fetchPhotoViewInfoTask. Photo id: " + photo.getId());
-			if(photo.getCommentCount() != null){
 
-				return photo;
+			photo.setFavCount(String.valueOf(Flickr.getInstance().getPhotoFavCount(photo.getId())));
+			photo.setCommentCount(String.valueOf(Flickr.getInstance().getPhotoCommentCount(photo.getId())));
 
-			}else{
+			return photo;
 
-				photo.setFavCount(String.valueOf(Flickr.getInstance().getPhotoFavCount(photo.getId())));
-				photo.setCommentCount(String.valueOf(Flickr.getInstance().getPhotoCommentCount(photo.getId())));
-
-				return photo;
-			}
 
 		}
 
 
 		@Override
 		protected void onPostExecute(Photo photo) {
-			mPhotoFavCount.setText(photo.getFavCount() + " Favs");
-			mPhotoCommentCount.setText(photo.getCommentCount() + " Comments");
+			setPhotoFavCommentCount(photo);
 		}
 	}
 

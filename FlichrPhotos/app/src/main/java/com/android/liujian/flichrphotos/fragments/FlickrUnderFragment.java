@@ -11,7 +11,7 @@ import android.view.ViewGroup;
  * The fragment -- 20under20
  * The inaugural celebration of the 20 most talented young photographers on Flickr.
  */
-public class TwentyUnderTwentyFragment extends Fragment {
+public class FlickrUnderFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

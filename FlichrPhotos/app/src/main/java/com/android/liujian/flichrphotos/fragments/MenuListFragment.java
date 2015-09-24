@@ -19,17 +19,24 @@ public class MenuListFragment extends Fragment {
 	private IMenu mMenuStub;
 
 	public interface IMenu{
-		public void closeMenu();
+		void closeMenu();
 	}
-	
+
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setRetainInstance(true);
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
-		View view = inflater.inflate(R.layout.menu_frame, container, false);
+		View view = inflater.inflate(R.layout.fragment_menu_content, container, false);
 		ListView menuListView = (ListView)view.findViewById(R.id.menu_list);
 		final String[] menuItems = getResources().getStringArray(R.array.menu_list_item);
-		menuListView.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, menuItems));
+		menuListView.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, menuItems));
 		
 		menuListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -38,6 +45,7 @@ public class MenuListFragment extends Fragment {
 					int position, long id) {
 				
 				mMenuStub.closeMenu();
+
 				Toast.makeText(getActivity(), menuItems[position], Toast.LENGTH_SHORT).show();
 			}
 			

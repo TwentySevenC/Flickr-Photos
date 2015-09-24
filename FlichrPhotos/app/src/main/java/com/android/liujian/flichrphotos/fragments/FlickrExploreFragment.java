@@ -45,7 +45,8 @@ public class FlickrExploreFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         setRetainInstance(true);
-        new FetchItemsTask().execute();
+
+        new FetchItemsTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         /**Start the handler thread*//*
         mThumbnailDownloader = new ThumbnailDownloader<ImageView>(new Handler());
@@ -69,7 +70,7 @@ public class FlickrExploreFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_explore_photo, container, false);
+		View view = inflater.inflate(R.layout.fragment_explore, container, false);
 		
 		/**Create a tab host that including two tabs*/
         /*TabHost tabHost = (TabHost)view.findViewById(R.id.tabHost);
@@ -100,7 +101,7 @@ public class FlickrExploreFragment extends Fragment {
 
 
     /**
-     * Set a adapter for the grid view
+     * Set a adapter for the list view
      */
     public void setUpAdapter(){
         if(getActivity() == null || mListView == null)  return ;
@@ -120,10 +121,13 @@ public class FlickrExploreFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-//
         super.onDestroyView();
     }
 
+
+    /**
+     * An AsyncTask to download photo items
+     */
     private class FetchItemsTask extends AsyncTask<Void, Void, ArrayList<Photo>> {
         @Override
         protected ArrayList<Photo> doInBackground(Void ... params){
@@ -154,7 +158,7 @@ public class FlickrExploreFragment extends Fragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if(null == convertView){
-                convertView = getActivity().getLayoutInflater().inflate(R.layout.photo_item, parent, false);
+                convertView = getActivity().getLayoutInflater().inflate(R.layout.simple_photo_item, parent, false);
             }
 
             ImageView _imageView = (ImageView)convertView.findViewById(R.id.photo_item);
@@ -190,7 +194,5 @@ public class FlickrExploreFragment extends Fragment {
 		}
     	
     }
-
-
 
 }

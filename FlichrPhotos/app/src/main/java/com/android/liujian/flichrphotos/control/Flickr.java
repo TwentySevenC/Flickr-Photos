@@ -11,6 +11,7 @@ import com.android.liujian.flichrphotos.model.Photo;
 import com.android.liujian.flichrphotos.model.Photoset;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,11 @@ public class Flickr {
 
     /**Singleton uniqueInstance*/
     private static Flickr mFlickr = null;
+
+    /**
+     * Flickr id
+     */
+    private static final String mFlickrId = "66956608@N06";
 
     /**
      * Some necessary information to get photo from the flickr
@@ -278,12 +284,23 @@ public class Flickr {
         String _url = Uri.parse(END_POINT).buildUpon()
                 .appendQueryParameter("method", GALLERIES_LIST_METHOD)
                 .appendQueryParameter("api_key", API_KEY)
-                .appendQueryParameter("format", OUTPUT_FORMAT)
                 .appendQueryParameter("user_id", userId)
                 .appendQueryParameter("primary_photo_extras", EXTRA_SMALL_URL)
+                .appendQueryParameter("format", OUTPUT_FORMAT)
                 .build().toString();
+        Log.d(TAG, "Get galleries list url: " + _url);
         return FlickrUtils.fetchGalleries(_url);
     }
+
+
+    /**
+     * A method to get flickr's gallery list
+     * @return gallery list
+     */
+    public ArrayList<Gallery> getFlickrGalleries(){
+        return getGalleryList(mFlickrId);
+    }
+
 
 
     /**
@@ -300,7 +317,8 @@ public class Flickr {
                 .appendQueryParameter("format", OUTPUT_FORMAT)
                 .build().toString();
 
-        return findPeopleByUserId(_url);
+
+        return findPeopleByUserId(FlickrUtils.parsePeopleId(_url));
     }
 
 

@@ -7,8 +7,8 @@ package com.android.liujian.flichrphotos.model;
 public class Gallery {
     private String mId;
     private String mOwnerId;
-    private String mOwnerName;
-    private String mUrl;
+//    private String mOwnerName;
+//    private String mUrl;
     private String mPrimaryPhotoUrl;
     private String mPhotoCount;
     private String mTitle;
@@ -20,11 +20,11 @@ public class Gallery {
         //default constructor
     }
 
-    public Gallery(String id, String ownerId, String ownerName, String url, String primaryPhotoUrl, String photoCount, String title, String description, String commentCount, String viewCount) {
+    public Gallery(String id, String ownerId, String primaryPhotoUrl, String photoCount, String title, String description, String commentCount, String viewCount) {
         mId = id;
         mOwnerId = ownerId;
-        mOwnerName = ownerName;
-        mUrl = url;
+//        mOwnerName = ownerName;
+//        mUrl = url;
         mPrimaryPhotoUrl = primaryPhotoUrl;
         mPhotoCount = photoCount;
         mTitle = title;
@@ -33,13 +33,14 @@ public class Gallery {
         mViewCount = viewCount;
     }
 
-    public String getOwnerName() {
-        return mOwnerName;
-    }
 
-    public void setOwnerName(String ownerName) {
-        mOwnerName = ownerName;
-    }
+//    public String getOwnerName() {
+//        return mOwnerName;
+//    }
+//
+//    public void setOwnerName(String ownerName) {
+//        mOwnerName = ownerName;
+//    }
 
     public String getViewCount() {
         return mViewCount;
@@ -73,13 +74,13 @@ public class Gallery {
         mOwnerId = ownerId;
     }
 
-    public String getUrl() {
-        return mUrl;
-    }
-
-    public void setUrl(String url) {
-        mUrl = url;
-    }
+//    public String getUrl() {
+//        return mUrl;
+//    }
+//
+//    public void setUrl(String url) {
+//        mUrl = url;
+//    }
 
     public String getPrimaryPhotoUrl() {
         return mPrimaryPhotoUrl;

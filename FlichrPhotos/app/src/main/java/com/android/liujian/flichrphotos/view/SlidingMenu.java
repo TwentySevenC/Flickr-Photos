@@ -52,15 +52,15 @@ public class SlidingMenu extends RelativeLayout {
 	 */
 	public static final int TOUCHMODE_NONE = 2;
 
-	/** Constant value for use with setMode(). Puts the menu to the left of the content.
+	/** Constant value for use with setMode(). Puts the menu to the left of the activity_main_content.
 	 */
 	public static final int LEFT = 0;
 
-	/** Constant value for use with setMode(). Puts the menu to the right of the content.
+	/** Constant value for use with setMode(). Puts the menu to the right of the activity_main_content.
 	 */
 	public static final int RIGHT = 1;
 
-	/** Constant value for use with setMode(). Puts menus to the left and right of the content.
+	/** Constant value for use with setMode(). Puts menus to the left and right of the activity_main_content.
 	 */
 	public static final int LEFT_RIGHT = 2;
 
@@ -338,19 +338,19 @@ public class SlidingMenu extends RelativeLayout {
 	}
 
 	/**
-	 * Set the above view content from a layout resource. The resource will be inflated, adding all top-level views
+	 * Set the above view activity_main_content from a layout resource. The resource will be inflated, adding all top-level views
 	 * to the above view.
 	 *
-	 * @param res the new content
+	 * @param res the new activity_main_content
 	 */
 	public void setContent(int res) {
 		setContent(LayoutInflater.from(getContext()).inflate(res, null));
 	}
 
 	/**
-	 * Set the above view content to the given View.
+	 * Set the above view activity_main_content to the given View.
 	 *
-	 * @param view The desired content to display.
+	 * @param view The desired activity_main_content to display.
 	 */
 	public void setContent(View view) {
 		mViewAbove.setContent(view);
@@ -358,27 +358,27 @@ public class SlidingMenu extends RelativeLayout {
 	}
 
 	/**
-	 * Retrieves the current content.
-	 * @return the current content
+	 * Retrieves the current activity_main_content.
+	 * @return the current activity_main_content
 	 */
 	public View getContent() {
 		return mViewAbove.getContent();
 	}
 
 	/**
-	 * Set the behind view (menu) content from a layout resource. The resource will be inflated, adding all top-level views
+	 * Set the behind view (menu) activity_main_content from a layout resource. The resource will be inflated, adding all top-level views
 	 * to the behind view.
 	 *
-	 * @param res the new content
+	 * @param res the new activity_main_content
 	 */
 	public void setMenu(int res) {
 		setMenu(LayoutInflater.from(getContext()).inflate(res, null));
 	}
 
 	/**
-	 * Set the behind view (menu) content to the given View.
+	 * Set the behind view (menu) activity_main_content to the given View.
 	 *
-	 * @param v The desired content to display.
+	 * @param v The desired activity_main_content to display.
 	 */
 	public void setMenu(View v) {
 		mViewBehind.setContent(v);
@@ -394,19 +394,19 @@ public class SlidingMenu extends RelativeLayout {
 	}
 
 	/**
-	 * Set the secondary behind view (right menu) content from a layout resource. The resource will be inflated, adding all top-level views
+	 * Set the secondary behind view (right menu) activity_main_content from a layout resource. The resource will be inflated, adding all top-level views
 	 * to the behind view.
 	 *
-	 * @param res the new content
+	 * @param res the new activity_main_content
 	 */
 	public void setSecondaryMenu(int res) {
 		setSecondaryMenu(LayoutInflater.from(getContext()).inflate(res, null));
 	}
 
 	/**
-	 * Set the secondary behind view (right menu) content to the given View.
+	 * Set the secondary behind view (right menu) activity_main_content to the given View.
 	 *
-	 * @param v The desired content to display.
+	 * @param v The desired activity_main_content to display.
 	 */
 	public void setSecondaryMenu(View v) {
 		mViewBehind.setSecondaryContent(v);

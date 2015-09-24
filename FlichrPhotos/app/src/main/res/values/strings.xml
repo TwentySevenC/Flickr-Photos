@@ -19,6 +19,8 @@
     <string name="photo_comment_num">comments</string>
     <string name="photo_author_name">author name</string>
     <string name="close_big_photo">Close the big photo</string>
+
+    <string name="gallery_title">gallery title</string>
     
 
 </resources>
