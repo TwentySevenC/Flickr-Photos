@@ -1,9 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="tabStripColor">#0000</color>
-    <color name="searchview_background_color">#424242</color>
+    <color name="searchview_background_color">#3F51B5</color>
     <color name="searchview_text_color">#E0E0E0</color>
     <color name="big_photo_default_background">#E0E0E0</color>
 
     <color name="author_photo_background">#212121</color>
+
+
+    <color name="indigo_500">#3F51B5</color>
+    <color name="indigo_50">#E8EAF6</color>
+    <color name="indigo_100">#C5CAE9</color>
+    <color name="indigo_200">#9FA8DA</color>
+    <color name="indigo_300">#7986CB</color>
+    <color name="indigo_400">#5C6BC0</color>
+    <color name="indigo_600">#3949AB</color>
+    <color name="indigo_700">#303F9F</color>
+    <color name="indigo_800">#283593</color>
+    <color name="indigo_900">#1A237E</color>
+
+    <color name="black">#000000</color>
+    <color name="gray_50">#FAFAFA</color>
+    <color name="gray_100">#F5F5F5</color>\
+    <color name="gray_200">#EEEEEE</color>
+    <color name="gray_300">#E0E0E0</color>
+    <color name="gray_400">#BDBDBD</color>
+    <color name="gray_500">#9E9E9E</color>
+    <color name="gray_700">#616161</color>
+
+    <color name="white">#FFFFFF</color>
+
 </resources>

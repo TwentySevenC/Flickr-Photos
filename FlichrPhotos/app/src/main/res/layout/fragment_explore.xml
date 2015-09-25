@@ -6,7 +6,7 @@
     android:background="@android:color/background_light">
     
     <SearchView 
-        android:id="@+id/search_view"
+        android:id="@+id/search_photo"
         android:layout_width="match_parent"
         android:layout_height="@dimen/searchview_height"
         android:background="@color/searchview_background_color"
@@ -17,8 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/background_light"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:choiceMode="singleChoice"
         />
 

@@ -555,6 +555,7 @@ public class FlickrUtils {
                 _item.setPhotoCount(parser.getAttributeValue(null, "count_photos"));
                 _item.setCommentCount(parser.getAttributeValue(null, "count_comments"));
                 _item.setViewCount(parser.getAttributeValue(null, "count_views"));
+                _item.setUpdatedTime(parser.getAttributeValue(null, "date_update"));
 
             }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_TITLE.equals(parser.getName())){
                 _item.setTitle(parser.nextText());

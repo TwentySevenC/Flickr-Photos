@@ -3,6 +3,7 @@ package com.android.liujian.flichrphotos.control;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,15 +30,68 @@ public class GalleryDownloader extends HandlerThread implements IDownloader<Bitm
     private final Map<ImageView, String> mImageViews =
             Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
 
+    private OnGalleryDownloadListener mGalleryDownloadListener;
+
+
     public GalleryDownloader(Handler handler) {
         super(TAG);
         mUIThreadHandler = handler;
         mCache = new HashMap<>();
     }
 
+
+    /**Define a observer listener*/
+    public interface OnGalleryDownloadListener{
+        void onGalleryDownload(ImageView imageView, Bitmap bitmap);
+    }
+
+    /**
+     * Set a observer listener
+     * @param listener
+     */
+    public void setOnGalleryDownloadListener(OnGalleryDownloadListener listener){
+        mGalleryDownloadListener = listener;
+    }
+
+
+    @Override
+    protected void onLooperPrepared() {
+        super.onLooperPrepared();
+
+        mDownloadHandler = new DownloadHandler();
+    }
+
+
+
+    /**
+     * A user-define handler class, use to download people and set imageView
+     */
+    private class DownloadHandler extends Handler{
+        @Override
+        public void handleMessage(Message msg) {
+            if(MESSAGE_WHAT == msg.what){
+                final ImageView _imageView = (ImageView)msg.obj;
+                String url = mImageViews.get(_imageView);
+
+                if(url == null) return ;
+
+                final Bitmap _bitmap = downloadModel(url);
+
+                mUIThreadHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mGalleryDownloadListener.onGalleryDownload(_imageView, _bitmap);
+                    }
+                });
+            }
+        }
+    }
+
+
+
     @Override
     public void load(String url, int resourceId, View... imageView) {
-        mImageViews.put((ImageView) imageView[1], url);
+        mImageViews.put((ImageView) imageView[0], url);
 
         Bitmap _bitmap = getModelFromCache(url);
 

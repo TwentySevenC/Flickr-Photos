@@ -1,21 +1,10 @@
 package com.android.liujian.flichrphotos.fragments;
 
-import java.io.IOException;
-
-import com.android.liujian.flichrphotos.R;
-import com.android.liujian.flichrphotos.control.BitmapDownloader;
-import com.android.liujian.flichrphotos.control.Flickr;
-import com.android.liujian.flichrphotos.control.FlickrUtils;
-import com.android.liujian.flichrphotos.control.PeopleDownloader;
-import com.android.liujian.flichrphotos.model.People;
-import com.android.liujian.flichrphotos.model.Photo;
-
 import android.app.Activity;
-import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +12,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.liujian.flichrphotos.R;
+import com.android.liujian.flichrphotos.control.BitmapDownloader;
+import com.android.liujian.flichrphotos.control.Flickr;
+import com.android.liujian.flichrphotos.control.PeopleDownloader;
+import com.android.liujian.flichrphotos.model.People;
+import com.android.liujian.flichrphotos.model.Photo;
+
+import java.io.IOException;
 
 public class BigPhotoSlideFragment extends Fragment {
 	private static final String TAG = "BigPhotoSlideFragment";

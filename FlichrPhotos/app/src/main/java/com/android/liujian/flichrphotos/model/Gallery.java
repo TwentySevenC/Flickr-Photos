@@ -9,6 +9,7 @@ public class Gallery {
     private String mOwnerId;
 //    private String mOwnerName;
 //    private String mUrl;
+    private String mUpdatedTime;
     private String mPrimaryPhotoUrl;
     private String mPhotoCount;
     private String mTitle;
@@ -41,6 +42,15 @@ public class Gallery {
 //    public void setOwnerName(String ownerName) {
 //        mOwnerName = ownerName;
 //    }
+
+
+    public String getUpdatedTime() {
+        return mUpdatedTime;
+    }
+
+    public void setUpdatedTime(String updatedTime) {
+        mUpdatedTime = updatedTime;
+    }
 
     public String getViewCount() {
         return mViewCount;

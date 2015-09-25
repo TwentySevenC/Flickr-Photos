@@ -1,21 +1,25 @@
 package com.android.liujian.flichrphotos.fragments;
 
 import android.app.Fragment;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.liujian.flichrphotos.R;
 import com.android.liujian.flichrphotos.control.BitmapDownloader;
 import com.android.liujian.flichrphotos.control.Flickr;
+import com.android.liujian.flichrphotos.control.GalleryDownloader;
 import com.android.liujian.flichrphotos.model.Gallery;
 
 import java.util.ArrayList;
@@ -26,10 +30,10 @@ import java.util.ArrayList;
  */
 public class FlickrGalleryFragment extends Fragment {
     private static final String TAG = "FlickrGalleryFragment";
-    private GridView mGridView;
+    private ListView mListView;
 
     private ArrayList<Gallery> mGalleries;
-
+    private GalleryDownloader mGalleryDownloader;
 
     public FlickrGalleryFragment(){
         //default constructor
@@ -43,14 +47,33 @@ public class FlickrGalleryFragment extends Fragment {
         new FetchGalleriesTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         Log.d(TAG, "FetchGalleriesTask started...");
 
+
+        mGalleryDownloader = new GalleryDownloader(new Handler());
+        mGalleryDownloader.setOnGalleryDownloadListener(new GalleryDownloader.OnGalleryDownloadListener() {
+            @Override
+            public void onGalleryDownload(ImageView imageView, Bitmap bitmap) {
+                if(isVisible()){
+                    imageView.setImageBitmap(bitmap);
+                }
+            }
+        });
+
+        mGalleryDownloader.start();
+        mGalleryDownloader.getLooper();
+
+        Log.d(TAG, "Gallery downloader started...");
+
+
     }
 
-    @Nullable
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View _view = inflater.inflate(R.layout.fragment_gallery, container, false);
 
-        mGridView = (GridView)_view.findViewById(R.id.gallery);
+        mListView = (ListView)_view.findViewById(R.id.gallery);
+
+        mListView.setOnItemClickListener(new OnListViewItemClickListener());
 
         setUpAdapter();
 
@@ -62,12 +85,12 @@ public class FlickrGalleryFragment extends Fragment {
      * Set a adapter for the grid view
      */
     public void setUpAdapter(){
-        if(getActivity() == null || mGridView == null)  return ;
+        if(getActivity() == null || mListView == null)  return ;
 
         if(mGalleries != null)
-            mGridView.setAdapter(new GridAdapter(mGalleries));
+            mListView.setAdapter(new ListViewAdapter(mGalleries));
         else
-            mGridView.setAdapter(null);
+            mListView.setAdapter(null);
     }
 
 
@@ -96,9 +119,9 @@ public class FlickrGalleryFragment extends Fragment {
     /**
      * GridView Adapter
      */
-    private class GridAdapter extends ArrayAdapter<Gallery>{
+    private class ListViewAdapter extends ArrayAdapter<Gallery>{
 
-        public GridAdapter(ArrayList<Gallery> galleries) {
+        public ListViewAdapter(ArrayList<Gallery> galleries) {
             super(getActivity(), 0, galleries);
         }
 
@@ -107,20 +130,42 @@ public class FlickrGalleryFragment extends Fragment {
         public View getView(int position, View convertView, ViewGroup parent) {
 
             if(null == convertView){
-                convertView = getActivity().getLayoutInflater().inflate(R.layout.simple_gallery_item, parent, false);
+                convertView = getActivity().getLayoutInflater().inflate(R.layout.simple_gallery_item_1, parent, false);
             }
 
-            ImageView _galleryCoverImage = (ImageView) convertView.findViewById(R.id.gallery_item_photo);
-            TextView _galleryTitle = (TextView) convertView.findViewById(R.id.gallery_item_title);
+            ImageView _galleryCoverImage = (ImageView) convertView.findViewById(R.id.gallery_primary_photo);
+            TextView _galleryTitle = (TextView) convertView.findViewById(R.id.gallery_title);
+            TextView _galleryUpdatedTime = (TextView) convertView.findViewById(R.id.gallery_updated);
+            TextView _galleryDescription = (TextView) convertView.findViewById(R.id.gallery_description);
+            TextView _galleryEvaluateCount = (TextView) convertView.findViewById(R.id.gallery_evaluate_count);
 
-            _galleryTitle.setText(mGalleries.get(position).getTitle());
+            Gallery _gallery = mGalleries.get(position);
+            _galleryTitle.setText(_gallery.getTitle());
+            _galleryDescription.setText(_gallery.getDescription());
+            _galleryEvaluateCount.setText(_gallery.getCommentCount() + " Comments  " + _gallery.getViewCount() + " Views");
+
+//            String _date = new SimpleDateFormat("MM-dd-yyyy").format(Date.valueOf(_gallery.getUpdatedTime()));
+            _galleryUpdatedTime.setText(_gallery.getPhotoCount() + " Photos  " + "Oct 4, 2015" + " updated");
 
             BitmapDownloader.getInstance()
                     .load(mGalleries.get(position).getPrimaryPhotoUrl(), R.mipmap.default_image, _galleryCoverImage);
+//            mGalleryDownloader.load(mGalleries.get(position).getPrimaryPhotoUrl(), R.mipmap.default_image, _galleryCoverImage);
 
             return convertView;
         }
 
     }
+
+
+    /**
+     * A item click listener
+     */
+    private class OnListViewItemClickListener implements AdapterView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Toast.makeText(getActivity(), "Click gallery ... " , Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 }
