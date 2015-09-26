@@ -1,6 +1,7 @@
 package com.android.liujian.flichrphotos.fragments;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.liujian.flichrphotos.GalleryPhotoActivity;
 import com.android.liujian.flichrphotos.R;
 import com.android.liujian.flichrphotos.control.BitmapDownloader;
 import com.android.liujian.flichrphotos.control.Flickr;
@@ -130,7 +132,7 @@ public class FlickrGalleryFragment extends Fragment {
         public View getView(int position, View convertView, ViewGroup parent) {
 
             if(null == convertView){
-                convertView = getActivity().getLayoutInflater().inflate(R.layout.simple_gallery_item_1, parent, false);
+                convertView = getActivity().getLayoutInflater().inflate(R.layout.simple_gallery_item, parent, false);
             }
 
             ImageView _galleryCoverImage = (ImageView) convertView.findViewById(R.id.gallery_primary_photo);
@@ -147,12 +149,24 @@ public class FlickrGalleryFragment extends Fragment {
 //            String _date = new SimpleDateFormat("MM-dd-yyyy").format(Date.valueOf(_gallery.getUpdatedTime()));
             _galleryUpdatedTime.setText(_gallery.getPhotoCount() + " Photos  " + "Oct 4, 2015" + " updated");
 
-            BitmapDownloader.getInstance()
-                    .load(mGalleries.get(position).getPrimaryPhotoUrl(), R.mipmap.default_image, _galleryCoverImage);
-//            mGalleryDownloader.load(mGalleries.get(position).getPrimaryPhotoUrl(), R.mipmap.default_image, _galleryCoverImage);
+//            BitmapDownloader.getInstance()
+//                    .load(mGalleries.get(position).getPrimaryPhotoUrl(), R.mipmap.default_image, _galleryCoverImage);
+            mGalleryDownloader.load(mGalleries.get(position).getPrimaryPhotoUrl(), R.mipmap.default_image, _galleryCoverImage);
 
             return convertView;
         }
+
+
+
+        private class OnPhotoClickListener implements View.OnClickListener{
+
+            @Override
+            public void onClick(View v) {
+                //TODO: CLick the author image
+            }
+        }
+
+
 
     }
 
@@ -163,9 +177,13 @@ public class FlickrGalleryFragment extends Fragment {
     private class OnListViewItemClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Toast.makeText(getActivity(), "Click gallery ... " , Toast.LENGTH_SHORT).show();
+
+            Intent _intent = new Intent(getActivity(), GalleryPhotoActivity.class);
+            Bundle _bundle = new Bundle();
+            _bundle.putSerializable(GalleryPhotoActivity.GALLERY_KEY, mGalleries.get(position));
+            _intent.putExtras(_bundle);
+            startActivity(_intent);
         }
     }
-
 
 }

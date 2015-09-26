@@ -1,10 +1,12 @@
 package com.android.liujian.flichrphotos.model;
 
+import java.io.Serializable;
+
 /**
  * Created by liujian on 15/9/11.
  * A model - Gallery
  */
-public class Gallery {
+public class Gallery implements Serializable{
     private String mId;
     private String mOwnerId;
 //    private String mOwnerName;

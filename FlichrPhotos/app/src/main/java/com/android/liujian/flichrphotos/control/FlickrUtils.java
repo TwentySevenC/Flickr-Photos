@@ -113,7 +113,7 @@ public class FlickrUtils {
      * @return a photo list
      */
     public static ArrayList<Photo> fetchPhotos(String url){
-
+        Log.d(TAG, "fetchPhotos");
         ArrayList<Photo> _photos = new ArrayList<>();
         try{
             String _xmlString = getUrl(url);
@@ -444,7 +444,7 @@ public class FlickrUtils {
      * @throws IOException
      */
     private static void parsePhotos(ArrayList<Photo> items, XmlPullParser parser) throws XmlPullParserException, IOException{
-        Log.d(TAG, "parseItems()");
+        Log.d(TAG, "parsePhotos()");
         int _endType = parser.next();
 
         while(XmlPullParser.END_DOCUMENT != _endType){
@@ -452,13 +452,18 @@ public class FlickrUtils {
             /**Parse a photo item from xml*/
             if(parser.getEventType() == XmlPullParser.START_TAG && XML_PHOTO.equals(parser.getName())){
                 Photo _item = new Photo();
+
                 _item.setId(parser.getAttributeValue(null, "id"));
+
                 _item.setUrl(parser.getAttributeValue(null, EXTRA_MEDIUM_URL));
 
-                Log.d(TAG, parser.getAttributeValue(null, EXTRA_MEDIUM_URL));
+                if(parser.getAttributeValue(null, EXTRA_MEDIUM_URL) != null)
+                    Log.d(TAG, parser.getAttributeValue(null, EXTRA_MEDIUM_URL));
 
                 _item.setTitle(parser.getAttributeValue(null, "title"));
                 _item.setOwnerId(parser.getAttributeValue(null, "owner"));
+
+
                 items.add(_item);
             }
 

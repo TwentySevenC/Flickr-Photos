@@ -26,6 +26,8 @@
         <activity
             android:name=".BigPhotoPagerActivity"/>
 
+        <activity android:name=".GalleryPhotoActivity"/>
+
 
 
     </application>

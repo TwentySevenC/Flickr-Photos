@@ -266,11 +266,11 @@ public class Flickr {
         String _url = Uri.parse(END_POINT).buildUpon()
                 .appendQueryParameter("method", GALLERIES_PHOTO_METHOD)
                 .appendQueryParameter("api_key", API_KEY)
-                .appendQueryParameter("extras", EXTRA_ORIGINAL_URL)
-                .appendQueryParameter("format", OUTPUT_FORMAT)
                 .appendQueryParameter("gallery_id", galleryId)
+                .appendQueryParameter("extras", EXTRA_MEDIUM_URL)
+                .appendQueryParameter("format", OUTPUT_FORMAT)
                 .build().toString();
-
+        Log.d(TAG, "Get gallery photos url: " + _url);
         return FlickrUtils.fetchPhotos(_url);
     }
 
