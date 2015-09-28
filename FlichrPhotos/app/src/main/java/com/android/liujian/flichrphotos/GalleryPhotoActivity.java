@@ -52,8 +52,6 @@ public class GalleryPhotoActivity extends Activity{
             }
         });
 
-//        TextView _galleryDescription = (TextView)findViewById(R.id.single_gallery_description);
-//        _galleryDescription.setText(mGallery.getDescription());
 
         mGridView = (GridView)findViewById(R.id.single_gallery_photos);
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

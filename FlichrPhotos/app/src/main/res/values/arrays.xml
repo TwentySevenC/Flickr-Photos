@@ -7,4 +7,153 @@
         <item >Favourite</item>
         <item >Setting</item>
     </string-array>
+
+
+    <string-array name="photographers_names">
+        <item >Evan J Atwood</item>
+        <item >Rachel Baran</item>
+        <item >Olivia Bee</item>
+        <item >Alex Benetel</item>
+        <item >Oliver Charles</item>
+        <item >Alex Currie</item>
+        <item >Silvia Grav</item>
+        <item >Zev Hoover</item>
+        <item >Katharina Jung</item>
+        <item >Lissy Laricchia</item>
+        <item >Brian Oldham</item>
+        <item >Laurence Philomene</item>
+        <item >Greg Ponthus</item>
+        <item >Berta Vicente Salas</item>
+        <item >Nicholas Scarpinato</item>
+        <item >Alex Stoddard</item>
+        <item >David Uzochukwu</item>
+        <item >Chrissie White</item>
+        <item >wiissa</item>
+        <item >Lauren Withrow</item>
+    </string-array>
+
+    <string-array name="photographers_ids">
+        <item >75034991@N05</item>
+        <item >47776579@N08</item>
+        <item >10853447@N06</item>
+        <item >27838818@N04</item>
+        <item >65516775@N02</item>
+        <item >65942669@N05</item>
+        <item >63102190@N07</item>
+        <item >66603426@N05</item>
+        <item >92795766@N04</item>
+        <item >37007775@N03</item>
+        <item >55407658@N05</item>
+        <item >21907940@N03</item>
+        <item >57115590@N03</item>
+        <item >29473452@N02</item>
+        <item >72187820@N08</item>
+        <item >48760515@N04</item>
+        <item >60882352@N05</item>
+        <item >48128761@N00</item>
+        <item >38546378@N02</item>
+        <item >32928900@N05</item>
+    </string-array>
+
+    <string-array name="photographers_cover_image_urls">
+        <item >https://farm8.staticflickr.com/7218/7092839051_e5bfc75e8f_c.jpg</item>
+        <item >https://farm9.staticflickr.com/8535/8916700014_00119fe648_c.jpg</item>
+        <item >https://farm4.staticflickr.com/3852/15001573652_729e3c4839_c.jpg</item>
+        <item >https://farm9.staticflickr.com/8068/8227681399_76e6a57797_c.jpg</item>
+        <item >https://farm3.staticflickr.com/2914/14550569782_84bb329788_c.jpg</item>
+        <item >https://farm6.staticflickr.com/5561/14855714005_c0e423abeb_c.jpg</item>
+        <item >https://farm3.staticflickr.com/2815/9672720200_e3157065d4_c.jpg</item>
+        <item >https://farm3.staticflickr.com/2864/9160856120_a8e17ceae6_c.jpg</item>
+        <item >https://farm4.staticflickr.com/3847/14692656800_f4a71eaef3_c.jpg</item>
+        <item >https://farm7.staticflickr.com/6098/6304393890_a01fd6ecc4_c.jpg</item>
+        <item >https://farm3.staticflickr.com/2109/5700338135_b0f85bc911_c.jpg</item>
+        <item >https://farm4.staticflickr.com/3849/14775805747_9815e036c0_c.jpg</item>
+        <item >https://farm8.staticflickr.com/7188/6928728720_97c1ced08f_c.jpg</item>
+        <item >https://farm3.staticflickr.com/2442/3823625739_eeca697501_c.jpg</item>
+        <item >https://farm9.staticflickr.com/8494/8323305481_4296220369_c.jpg</item>
+        <item >https://farm5.staticflickr.com/4088/5037955976_1537b30234_b.jpg</item>
+        <item >https://farm4.staticflickr.com/3861/15114347211_404f07922f_c.jpg</item>
+        <item >https://farm3.staticflickr.com/2752/5825099471_600bfa8c51_c.jpg</item>
+        <item >https://farm8.staticflickr.com/7315/9701860090_ce626204b9_c.jpg</item>
+        <item >https://farm4.staticflickr.com/3896/14592913446_2629c03939_c.jpg</item>
+    </string-array>
+
+
+    <array name="photographer_author_evaluate">
+        <item >Evan James Atwood currently lives in Flagstaff, Arizona, and took an interest in photography
+            exploring self-portraiture through a 365 project in 2012. This experience nurtured a passion for
+            the visual arts and a fascination with expressing the darker range of human emotions. His work,
+            however, often contains a strong element of hope and depicts simple moments with a cinematic quality.</item>
+        <item >Rachel Baran is a fine art photographer whose work centers around conceptual self\-portraits.
+            Even though Baran has received no formal training in photography or graphic design, her work has
+            been recognized internationally on blogs such as My Modern Metropolis and on multiple book covers,
+            and even taken her overseas under commission, displaying her photographic techniques at the \"Festival
+            Week\-end au bord de l\'eau\" music festival in Sierre, Switzerland, this past summer.</item>
+        <item >Olivia Bee is a 20\-year\-old photographer and director from Portland, Oregon, who is based in
+            Brooklyn, New York. She is intrigued by the beauty of everyday life and how the beauty of memories
+            (real or imagined) touches us. Her portfolio includes portraits (The New York Times Magazine, TeenNick),
+            lifestyle (Converse, Adidas, Nike), and fashion (Hermès, Harper\'s Bazaar, Numero, Vogue.com, Roger
+            Vivier).</item>
+        <item >Alex is from Sydney, Australia, and became interested in photography after taking a visual design
+            course. She has since been published in Russia\'s Harper\'s Bazaar, showcased her work in Sydney, and
+            has been fortunate enough to travel, meet and collaborate with other artists. Alex\’s work captures
+            mysterious yet dreamlike worlds, filled with oddities that encompass aspects of reality.</item>
+        <item >Oliver Charles\’ interest in photography began at a young age, and he has since built a collection
+            of work which expresses the surreal and often dark stages of human emotion. Oliver juxtaposes dreaming
+            and reality by capturing people in dreamlike scenarios but located in natural environments. Oliver is
+            currently based in London, where he is studying digital photography at Ravensbourne College.</item>
+        <item >Alex Currie is a photographer and filmmaker from Buffalo, New York. His photographs focus on
+            conveying a story in a single frame and evoking a strong emotional connection with the viewer.</item>
+        <item >Silvia Grav was born in Basque Country. She started in fine arts, but was frustrated and left
+            during her second year to devote herself to improving her photography on her own. Since then, she has
+            appeared in several major magazines and blogs, continuously working on artwork for various musicians
+            and has been involved in various new projects.</item>
+        <item >Zev Hoover is a 15\-year\-old lad with a camera. He tries to capture the beauty in loneliness, the
+            beauty of being a very small person in a very big place. In addition to exhibits, there have been blogs,
+            books, newspaper and magazines articles, and a BBC documentary on his work. When not taking pictures,
+            he likes designing, building, flying and oftentimes crashing large foam\-board remote\-controlled airplanes
+            equipped with cameras.</item>
+        <item >Katharina is a fine\-art and portrait photographer from Hermeskeil, Germany. Since February 2013,
+            she converts her daydreams into images. After finishing her diploma as a media designer in June 2014
+            she will go to Bali and travel thorugh New Zealand with her camera.</item>
+        <item >Lissy (Elle) Laricchia is a 20\-year\-old photographer from Ontario, Canada (but currently resides
+            in New York City), with a large online presence of over 80,000 followers. Her work predominantly centers
+            around feelings of nostalgia and feeding her inner child. Her photos have appeared in fashion, photography,
+            and literary magazines, on book and album covers, in stores, and have inspired a music video. They have also
+            been exhibited internationally.</item>
+        <item >Brian Oldham is a freelance fine\-art photographer, specializing in the surreal and conceptual realms.
+            Brian grew up, and still lives and works, near Los Angeles.</item>
+        <item >Laurence Philomene is a Montreal\-based freelance photographer. She started taking pictures and posting
+            them online when she was 14 and hasn’t stopped since, developing her own dreamy, pastel\-hued aesthetic.
+            Nowadays, you can find her at home playing with dolls, taking care of her birds, napping and taking pictures
+            that explore themes of gender identity, femininity, girlhood, and color.</item>
+        <item >Greg Ponthus is a photographer who grew in the countryside of Lyon, where he lived in golden light and
+            grassy hills. He moved from France two years ago to attend an art school in Brussels. He stole his first
+            camera from his dad when he was 15 or so and immediately started shooting people he lived with.</item>
+        <item >Berta Vicente is a Spanish photographer who started taking pictures of her friends at the age of 14.
+            She continues to learn and explore, and currently exhibits her work in art galleries in Barcelona,
+            London and Paris.</item>
+        <item >Nicholas Scarpinato is a photographer based out of Richmond, VA. From an early age he was trained in
+            classical painting, sculpture, and drawing but later found photography and filmmaking to be his passion.
+            He currently studies photography and filmmaking at Virginia Commonwealth University.</item>
+        <item >Alex Stoddard was born in Jacksonville, Florida, and spent his childhood in the deep south. He began
+            taking self\-portraits at the age of 16 in the woods behind his home in Georgia, and this stirred in him
+            the need to create and express himself through the craft of photography. Through his work, Alex creates
+            dark and fantastical tales that capture the drama and fragility of the human experience.</item>
+        <item >David Uzochukwu was born in December 1998 in Innsbruck, Austria. He delved into photography at the
+            age of 10, and focused on self-portraiture and fine art photography after having fallen in love with
+            the craft.</item>
+        <item >Chrissie White is a photographer from Seattle who is always searching for magic in the nature that
+            surrounds us all. Her childhood was spent exploring snow\-covered mountains and sailing through the glittering
+            sea, which has greatly influenced her passion for adventure. When she isn\'t seeing new places, she likes to
+            dream of faraway worlds where anything is possible.</item>
+        <item >Vanessa and Wilson are a photography duo from Miami, Florida. They met when they were 14- and
+            15\-years\-old, and have been together since. They shoot exclusively film, and love lots of color, sunshine
+            and the seventies.</item>
+        <item >Lauren Withrow was born in Texas and began photographing at the age of 15. Growing up in a small southern
+            town, Withrow finds inspiration in the vast landscapes and dirt roads within the Texas countryside. Withrow\'s
+            focus is on cinematic portraiture and is currently in development of her first film.</item>
+    </array>
+
+
 </resources>

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.android.liujian.flichrphotos.control.Flickr;
 import com.android.liujian.flichrphotos.control.PeopleDownloader;
 import com.android.liujian.flichrphotos.fragments.BigPhotoSlideFragment;
+import com.android.liujian.flichrphotos.model.Comment;
 import com.android.liujian.flichrphotos.model.Photo;
 
 
@@ -157,9 +158,19 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 
 	}
 
+
+	/**
+	 * Show the photo's comment
+	 * @param v
+	 */
 	public void showPhotoComments(View v){
 		//TODO: show photo comments
-
+		Intent _intent = new Intent(BigPhotoPagerActivity.this, CommentActivity.class);
+		Bundle _bundle = new Bundle();
+		_bundle.putString(CommentActivity.COMMENT_PHOTO_ID_KEY, mPhotoList.get(mPhotoPosition).getId());
+		_bundle.putString(CommentActivity.COMMENT_PHOTO_NAME_KEY, mPhotoList.get(mPhotoPosition).getTitle());
+		_intent.putExtras(_bundle);
+		startActivity(_intent);
 	}
 
 

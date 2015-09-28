@@ -556,7 +556,7 @@ public class FlickrUtils {
                 _item.setId(parser.getAttributeValue(null, "id"));
 //                _item.setUrl(parser.getAttributeValue(null, "url"));
                 _item.setOwnerId(parser.getAttributeValue(null, "owner"));
-//                _item.setOwnerName(parser.getAttributeValue(null, "username"));
+                _item.setOwnerName(parser.getAttributeValue(null, "username"));
                 _item.setPhotoCount(parser.getAttributeValue(null, "count_photos"));
                 _item.setCommentCount(parser.getAttributeValue(null, "count_comments"));
                 _item.setViewCount(parser.getAttributeValue(null, "count_views"));
@@ -567,7 +567,7 @@ public class FlickrUtils {
             }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_DESCRIPTION.equals(parser.getName())){
                 _item.setDescription(parser.nextText());
             }else if(parser.getEventType() == XmlPullParser.START_TAG && XML_PRIMARY_PHOTO_EXTRA.equals(parser.getName())){
-                _item.setPrimaryPhotoUrl(parser.getAttributeValue(null, "url_s"));
+                _item.setPrimaryPhotoUrl(parser.getAttributeValue(null, "url_c"));
                 galleries.add(_item);
                 _item = new Gallery();
             }
@@ -630,6 +630,7 @@ public class FlickrUtils {
                 Comment _item = new Comment();
                 _item.setCommentId(parser.getAttributeValue(null, "id"));
                 _item.setAuthorId(parser.getAttributeValue(null, "author"));
+                _item.setAuthorName(parser.getAttributeValue(null, "authorname"));
                 _item.setContent(parser.nextText());
                 comments.add(_item);
             }

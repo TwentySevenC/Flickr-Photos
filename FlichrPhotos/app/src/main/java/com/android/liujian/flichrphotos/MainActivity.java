@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.android.liujian.flichrphotos.fragments.FlickrGalleryFragment;
+import com.android.liujian.flichrphotos.fragments.FlickrPhotographerFragment;
 import com.android.liujian.flichrphotos.fragments.MenuListFragment.IMenu;
 import com.android.liujian.flichrphotos.fragments.FlickrExploreFragment;
 import com.android.liujian.flichrphotos.view.SlidingMenu;

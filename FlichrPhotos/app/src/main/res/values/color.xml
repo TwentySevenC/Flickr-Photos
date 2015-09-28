@@ -29,5 +29,6 @@
     <color name="gray_700">#616161</color>
 
     <color name="white">#FFFFFF</color>
+    <color name="secondary_text_color">#444444</color>
 
 </resources>

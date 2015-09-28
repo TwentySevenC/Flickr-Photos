@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class Gallery implements Serializable{
     private String mId;
     private String mOwnerId;
-//    private String mOwnerName;
+    private String mOwnerName;
 //    private String mUrl;
     private String mUpdatedTime;
     private String mPrimaryPhotoUrl;
@@ -37,13 +37,13 @@ public class Gallery implements Serializable{
     }
 
 
-//    public String getOwnerName() {
-//        return mOwnerName;
-//    }
-//
-//    public void setOwnerName(String ownerName) {
-//        mOwnerName = ownerName;
-//    }
+    public String getOwnerName() {
+        return mOwnerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        mOwnerName = ownerName;
+    }
 
 
     public String getUpdatedTime() {

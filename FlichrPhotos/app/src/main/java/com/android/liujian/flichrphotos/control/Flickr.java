@@ -285,7 +285,7 @@ public class Flickr {
                 .appendQueryParameter("method", GALLERIES_LIST_METHOD)
                 .appendQueryParameter("api_key", API_KEY)
                 .appendQueryParameter("user_id", userId)
-                .appendQueryParameter("primary_photo_extras", EXTRA_SMALL_URL)
+                .appendQueryParameter("primary_photo_extras", EXTRA_MEDIUM_URL)
                 .appendQueryParameter("format", OUTPUT_FORMAT)
                 .build().toString();
         Log.d(TAG, "Get galleries list url: " + _url);

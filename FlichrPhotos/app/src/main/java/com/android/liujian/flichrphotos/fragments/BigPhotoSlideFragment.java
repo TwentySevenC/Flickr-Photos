@@ -59,7 +59,7 @@ public class BigPhotoSlideFragment extends Fragment {
 
 		mPeopleDownloader.setOnPeopleDownloadListener(new PeopleDownloader.OnPeopleDownloadListener() {
 			@Override
-			public void setAuthorProfile(String userId, Bitmap bitmap, String name) {
+			public void setAuthorProfile(String userId, ImageView imageView, Bitmap bitmap, String name) {
 				if (isVisible()) {
 
 					if (!userId.equals(getPhoto().getOwnerId()))
@@ -105,7 +105,7 @@ public class BigPhotoSlideFragment extends Fragment {
 
 
 		BitmapDownloader.getInstance().load(mPhoto.getUrl(), R.mipmap.default_image, _imageView);
-		mPeopleDownloader.load(mPhoto.getOwnerId(), R.mipmap.default_image, mAuthorName, mBuddyicon);
+		mPeopleDownloader.load(mPhoto.getOwnerId(), R.mipmap.default_buddyicon, mAuthorName, mBuddyicon);
 
 
 		_imageView.setOnClickListener(new View.OnClickListener() {
@@ -193,38 +193,5 @@ public class BigPhotoSlideFragment extends Fragment {
 	}
 
 
-	/**
-	 * An AsyncTask to download photo's information -- author name, author icon
-	 */
-
-	private class PhotoInfoTask extends AsyncTask<Photo, Void, People>{
-		@Override
-		protected People doInBackground(Photo... params) {
-			if(isCancelled()){
-				return null;
-			}
-
-			People _people = null;
-			Photo photo = params[0];
-			Log.d(TAG, "fetchPhotoViewInfoTask. Photo id: " + photo.getId());
-			try {
-				_people = Flickr.getInstance().findPeopleByUserId(photo.getOwnerId());
-				Log.d(TAG, "AsyncTask get a people, id: " + _people.getUserName());
-			} catch (IOException e) {
-				Log.d(TAG, "Fail to get people by user id.");
-				e.printStackTrace();
-			}
-
-			return _people;
-		}
-
-
-		@Override
-		protected void onPostExecute(People people) {
-			mPhotoOwner = people;
-			mAuthorName.setText(mPhotoOwner.getRealName());
-			mBuddyicon.setImageBitmap(mPhotoOwner.getBuddyicon());
-		}
-	}
 
 }

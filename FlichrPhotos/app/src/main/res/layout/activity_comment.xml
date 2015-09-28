@@ -7,11 +7,11 @@
     android:background="@android:color/background_light">
 
     <TextView
-        android:id="@+id/single_gallery_title"
+        android:id="@+id/comment_photo_title"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/indigo_500"
-        android:text="Title"
+        android:text="Comment"
         android:gravity="center_vertical"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:drawableLeft="@drawable/abc_ic_ab_back_mtrl_am_alpha"
@@ -19,25 +19,10 @@
         android:paddingLeft="16dp"
         />
 
-   <!-- <TextView
-        android:id="@+id/single_gallery_description"
+    <ListView
+        android:id="@+id/comment_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="description"
-        android:textSize="16dp"/>-->
-
-    <GridView
-        android:id="@+id/single_gallery_photos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:numColumns="auto_fit"
-        android:verticalSpacing="4dp"
-        android:horizontalSpacing="4dp"
-        android:stretchMode="columnWidth"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:background="@android:color/background_light"/>
+        android:layout_height="match_parent"/>
 
 
 </LinearLayout>

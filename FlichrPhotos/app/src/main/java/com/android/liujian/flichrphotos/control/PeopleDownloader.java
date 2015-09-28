@@ -74,7 +74,7 @@ public class PeopleDownloader extends HandlerThread implements IDownloader<Peopl
 
     /**Define a observer listener*/
     public interface OnPeopleDownloadListener{
-        void setAuthorProfile(String uerId, Bitmap bitmap, String userName);
+        void setAuthorProfile(String uerId, ImageView imageView, Bitmap bitmap, String userName);
     }
 
     /**
@@ -101,7 +101,7 @@ public class PeopleDownloader extends HandlerThread implements IDownloader<Peopl
         @Override
         public void handleMessage(Message msg) {
             if(MESSAGE_WHAT == msg.what){
-                ImageView _imageView = (ImageView)msg.obj;
+                final ImageView _imageView = (ImageView)msg.obj;
                 String userId = mImageViews.get(_imageView);
 
                 if(userId == null) return ;
@@ -111,7 +111,7 @@ public class PeopleDownloader extends HandlerThread implements IDownloader<Peopl
                 mUIThreadHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        mPeopleDownloadListener.setAuthorProfile(_people.getId(), _people.getBuddyicon(), _people.getRealName());
+                        mPeopleDownloadListener.setAuthorProfile(_people.getId(), _imageView, _people.getBuddyicon(), _people.getRealName());
                     }
                 });
             }

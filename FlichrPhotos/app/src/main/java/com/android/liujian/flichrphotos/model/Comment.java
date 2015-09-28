@@ -9,6 +9,7 @@ public class Comment {
     private String mCommentId;
     private String mContent;
     private String mAuthorId;
+    private String mAuthorName;
 
     public Comment(){
         //default constructor
@@ -20,6 +21,14 @@ public class Comment {
         mCommentId = commentId;
         mContent = content;
         mAuthorId = authorId;
+    }
+
+    public String getAuthorName() {
+        return mAuthorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        mAuthorName = authorName;
     }
 
     public String getPhotoId() {

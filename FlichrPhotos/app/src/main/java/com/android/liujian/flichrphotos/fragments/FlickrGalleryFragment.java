@@ -132,25 +132,26 @@ public class FlickrGalleryFragment extends Fragment {
         public View getView(int position, View convertView, ViewGroup parent) {
 
             if(null == convertView){
-                convertView = getActivity().getLayoutInflater().inflate(R.layout.simple_gallery_item, parent, false);
+                convertView = getActivity().getLayoutInflater().inflate(R.layout.simple_gallery_item_1, parent, false);
             }
 
             ImageView _galleryCoverImage = (ImageView) convertView.findViewById(R.id.gallery_primary_photo);
             TextView _galleryTitle = (TextView) convertView.findViewById(R.id.gallery_title);
-            TextView _galleryUpdatedTime = (TextView) convertView.findViewById(R.id.gallery_updated);
+            TextView _galleryUpdatedTime = (TextView) convertView.findViewById(R.id.gallery_updated_date);
             TextView _galleryDescription = (TextView) convertView.findViewById(R.id.gallery_description);
-            TextView _galleryEvaluateCount = (TextView) convertView.findViewById(R.id.gallery_evaluate_count);
+            TextView _galleryCommentCount = (TextView) convertView.findViewById(R.id.gallery_comment_count);
+            TextView _galleryAuthorName = (TextView)convertView.findViewById(R.id.gallery_author_name);
 
             Gallery _gallery = mGalleries.get(position);
             _galleryTitle.setText(_gallery.getTitle());
             _galleryDescription.setText(_gallery.getDescription());
-            _galleryEvaluateCount.setText(_gallery.getCommentCount() + " Comments  " + _gallery.getViewCount() + " Views");
+            _galleryCommentCount.setText(_gallery.getCommentCount());
+            _galleryUpdatedTime.setText("2d");
+            _galleryAuthorName.setText(_gallery.getOwnerName());
+
 
 //            String _date = new SimpleDateFormat("MM-dd-yyyy").format(Date.valueOf(_gallery.getUpdatedTime()));
-            _galleryUpdatedTime.setText(_gallery.getPhotoCount() + " Photos  " + "Oct 4, 2015" + " updated");
 
-//            BitmapDownloader.getInstance()
-//                    .load(mGalleries.get(position).getPrimaryPhotoUrl(), R.mipmap.default_image, _galleryCoverImage);
             mGalleryDownloader.load(mGalleries.get(position).getPrimaryPhotoUrl(), R.mipmap.default_image, _galleryCoverImage);
 
             return convertView;
@@ -165,7 +166,6 @@ public class FlickrGalleryFragment extends Fragment {
                 //TODO: CLick the author image
             }
         }
-
 
 
     }
