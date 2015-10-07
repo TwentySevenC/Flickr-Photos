@@ -23,12 +23,13 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".BigPhotoPagerActivity"/>
+        <activity android:name=".BigPhotoPagerActivity"/>
 
         <activity android:name=".GalleryPhotoActivity"/>
 
+        <activity android:name=".FlickrUserActivity"/>
 
+        <activity android:name=".CommentActivity"/>
 
     </application>
 

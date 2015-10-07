@@ -10,7 +10,7 @@
         android:id="@+id/user_photostream"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="auto_fit"
+        android:numColumns="3"
         android:verticalSpacing="4dp"
         android:horizontalSpacing="4dp"
         android:background="@android:color/background_light"/>

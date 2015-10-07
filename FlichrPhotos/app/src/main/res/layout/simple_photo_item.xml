@@ -4,9 +4,8 @@
     android:id="@+id/photo_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
     android:contentDescription="@string/photo_item"
     android:src="@drawable/default_drawable"
-    android:paddingBottom="16dp"/>
+    android:paddingBottom="8dp"/>
 
 

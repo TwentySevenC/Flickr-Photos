@@ -12,6 +12,7 @@ public class Photo implements Serializable{
     private String mUrl;
     private String mId;
     private String mOwnerId;
+    private String mOwnerName;
     private String mCommentCount;
     private String mViewCount;
     private String mFavCount;
@@ -19,6 +20,14 @@ public class Photo implements Serializable{
 
     public Photo(){
         //default constructor
+    }
+
+    public String getOwnerName() {
+        return mOwnerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        mOwnerName = ownerName;
     }
 
     public String getTakenTime() {

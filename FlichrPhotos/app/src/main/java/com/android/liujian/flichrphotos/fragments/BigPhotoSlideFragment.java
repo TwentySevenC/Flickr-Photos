@@ -1,8 +1,8 @@
 package com.android.liujian.flichrphotos.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -13,14 +13,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.liujian.flichrphotos.FlickrUserActivity;
 import com.android.liujian.flichrphotos.R;
 import com.android.liujian.flichrphotos.control.BitmapDownloader;
-import com.android.liujian.flichrphotos.control.Flickr;
 import com.android.liujian.flichrphotos.control.PeopleDownloader;
 import com.android.liujian.flichrphotos.model.People;
 import com.android.liujian.flichrphotos.model.Photo;
-
-import java.io.IOException;
 
 public class BigPhotoSlideFragment extends Fragment {
 	private static final String TAG = "BigPhotoSlideFragment";
@@ -28,7 +26,7 @@ public class BigPhotoSlideFragment extends Fragment {
 	private static final String FRAGMENT_ARGS_PHOTO = "photo";
 	
 	private Photo mPhoto;
-	private People mPhotoOwner;
+	private String mOwnerName;
 	private ImageView mBuddyicon;
 	private TextView mAuthorName;
 	private TextView mPhotoTitle;
@@ -67,6 +65,7 @@ public class BigPhotoSlideFragment extends Fragment {
 
 					if (name != null) {
 						mAuthorName.setText(name);
+						mOwnerName = name;
 					}
 
 					if (bitmap != null) {
@@ -76,7 +75,6 @@ public class BigPhotoSlideFragment extends Fragment {
 				}
 			}
 		});
-
 	}
 
 	@Override
@@ -91,16 +89,8 @@ public class BigPhotoSlideFragment extends Fragment {
 
 		mPhotoTitle.setText(mPhoto.getTitle());
 
-
-		mBuddyicon.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				//TODO: Click the user buddy icon to start the user activity
-
-				if (mPhotoOwner != null)
-					Toast.makeText(getActivity(), mPhotoOwner.getUserName(), Toast.LENGTH_SHORT).show();
-			}
-		});
+		mAuthorName.setOnClickListener(new OnUserClickListener());
+		mBuddyicon.setOnClickListener(new OnUserClickListener());
 
 
 
@@ -117,6 +107,19 @@ public class BigPhotoSlideFragment extends Fragment {
 		});
 
 		return rootView;
+	}
+
+
+	private class OnUserClickListener implements View.OnClickListener{
+		@Override
+		public void onClick(View v) {
+			Intent _intent = new Intent(getActivity(), FlickrUserActivity.class);
+			Bundle _bundle = new Bundle();
+			_bundle.putString(FlickrUserActivity.USER_ID_KEY, mPhoto.getOwnerId());
+			_bundle.putString(FlickrUserActivity.USER_NAME_KEY, mOwnerName);
+			_intent.putExtras(_bundle);
+			startActivity(_intent);
+		}
 	}
 	
 	/**

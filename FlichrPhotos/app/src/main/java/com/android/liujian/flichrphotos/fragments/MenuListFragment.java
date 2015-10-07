@@ -1,15 +1,12 @@
 package com.android.liujian.flichrphotos.fragments;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.liujian.flichrphotos.R;
@@ -19,7 +16,7 @@ public class MenuListFragment extends Fragment {
 	private IMenu mMenuStub;
 
 	public interface IMenu{
-		void closeMenu();
+		void replaceFragment(Fragment fragment);
 	}
 
 
@@ -33,25 +30,48 @@ public class MenuListFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
-		View view = inflater.inflate(R.layout.fragment_menu_content, container, false);
-		ListView menuListView = (ListView)view.findViewById(R.id.menu_list);
-		final String[] menuItems = getResources().getStringArray(R.array.menu_list_item);
-		menuListView.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, menuItems));
-		
-		menuListView.setOnItemClickListener(new OnItemClickListener() {
+		return inflater.inflate(R.layout.fragment_menu_content, container, false);
+	}
 
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+
+		TextView menuExplore = (TextView)view.findViewById(R.id.menu_explore);
+		TextView menuGallery = (TextView)view.findViewById(R.id.menu_gallery);
+		TextView menuPhotographer = (TextView)view.findViewById(R.id.menu_photographer);
+		TextView menuFavourite = (TextView)view.findViewById(R.id.menu_favourite);
+
+		menuExplore.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				
-				mMenuStub.closeMenu();
-
-				Toast.makeText(getActivity(), menuItems[position], Toast.LENGTH_SHORT).show();
+			public void onClick(View v) {
+				mMenuStub.replaceFragment(new FlickrExploreFragment());
 			}
-			
 		});
-		
-		return view;
+
+		menuGallery.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mMenuStub.replaceFragment(new FlickrGalleryFragment());
+			}
+		});
+
+		menuPhotographer.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mMenuStub.replaceFragment(new FlickrPhotographerFragment());
+			}
+		});
+
+		menuFavourite.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(getActivity(), "Favourite", Toast.LENGTH_SHORT).show();
+			}
+		});
+
+
+
 	}
 
 	@Override
@@ -59,6 +79,7 @@ public class MenuListFragment extends Fragment {
 		// TODO Auto-generated method stub
 		mMenuStub = (IMenu)activity;
 		super.onAttach(activity);
-	}	
+	}
+
 	
 }

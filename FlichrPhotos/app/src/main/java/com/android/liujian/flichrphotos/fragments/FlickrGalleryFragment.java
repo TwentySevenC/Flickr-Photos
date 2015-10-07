@@ -1,11 +1,11 @@
 package com.android.liujian.flichrphotos.fragments;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +15,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.android.liujian.flichrphotos.FlickrUserActivity;
 import com.android.liujian.flichrphotos.GalleryPhotoActivity;
 import com.android.liujian.flichrphotos.R;
-import com.android.liujian.flichrphotos.control.BitmapDownloader;
 import com.android.liujian.flichrphotos.control.Flickr;
 import com.android.liujian.flichrphotos.control.GalleryDownloader;
 import com.android.liujian.flichrphotos.model.Gallery;
@@ -129,7 +128,7 @@ public class FlickrGalleryFragment extends Fragment {
 
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
 
             if(null == convertView){
                 convertView = getActivity().getLayoutInflater().inflate(R.layout.simple_gallery_item_1, parent, false);
@@ -141,6 +140,7 @@ public class FlickrGalleryFragment extends Fragment {
             TextView _galleryDescription = (TextView) convertView.findViewById(R.id.gallery_description);
             TextView _galleryCommentCount = (TextView) convertView.findViewById(R.id.gallery_comment_count);
             TextView _galleryAuthorName = (TextView)convertView.findViewById(R.id.gallery_author_name);
+            ImageView _galleryAuthorImage = (ImageView)convertView.findViewById(R.id.gallery__author_image);
 
             Gallery _gallery = mGalleries.get(position);
             _galleryTitle.setText(_gallery.getTitle());
@@ -149,6 +149,18 @@ public class FlickrGalleryFragment extends Fragment {
             _galleryUpdatedTime.setText("2d");
             _galleryAuthorName.setText(_gallery.getOwnerName());
 
+            _galleryAuthorImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent _intent = new Intent(getActivity(), FlickrUserActivity.class);
+                    Bundle _bundle = new Bundle();
+                    _bundle.putString(FlickrUserActivity.USER_ID_KEY, mGalleries.get(position).getOwnerId());
+                    _bundle.putString(FlickrUserActivity.USER_NAME_KEY, mGalleries.get(position).getOwnerName());
+                    _intent.putExtras(_bundle);
+                    startActivity(_intent);
+                }
+            });
+
 
 //            String _date = new SimpleDateFormat("MM-dd-yyyy").format(Date.valueOf(_gallery.getUpdatedTime()));
 
@@ -156,17 +168,6 @@ public class FlickrGalleryFragment extends Fragment {
 
             return convertView;
         }
-
-
-
-        private class OnPhotoClickListener implements View.OnClickListener{
-
-            @Override
-            public void onClick(View v) {
-                //TODO: CLick the author image
-            }
-        }
-
 
     }
 
@@ -180,7 +181,10 @@ public class FlickrGalleryFragment extends Fragment {
 
             Intent _intent = new Intent(getActivity(), GalleryPhotoActivity.class);
             Bundle _bundle = new Bundle();
-            _bundle.putSerializable(GalleryPhotoActivity.GALLERY_KEY, mGalleries.get(position));
+            Gallery _gallery = mGalleries.get(position);
+            _bundle.putString(GalleryPhotoActivity.GALLERY_NAME_KEY, _gallery.getTitle());
+            _bundle.putString(GalleryPhotoActivity.GALLERY_ID_KEY, _gallery.getId());
+            _bundle.putString(GalleryPhotoActivity.USER_NAME_KEY, _gallery.getOwnerName());
             _intent.putExtras(_bundle);
             startActivity(_intent);
         }

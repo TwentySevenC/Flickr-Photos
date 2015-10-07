@@ -14,13 +14,14 @@
     <string name="photo_infor">Photo information</string>
     <string name="photo_comments">Photo comments</string>
     <string name="big_photo_show">Big photo</string>
-    <string name="photo_title">Photo title</string>
+    <string name="photo_title">Photo name</string>
     <string name="photo_fave_num">faves</string>
     <string name="photo_comment_num">comments</string>
-    <string name="photo_author_name">author name</string>
+    <string name="photo_author_name">author</string>
     <string name="close_big_photo">Close the big photo</string>
 
-    <string name="gallery_title">gallery title</string>
+    <string name="gallery_title">gallery name</string>
     
-    <string name="photographer_title">20 under 20</string>
+    <string name="photographer_title">20 Under 20</string>
+
 </resources>

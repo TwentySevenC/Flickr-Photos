@@ -110,7 +110,6 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 					if(_photo.getCommentCount() != null){
 						setPhotoFavCommentCount(_photo);
 					}else{
-//						new fetchPhotoViewInfoTask().execute(_photo);
 						new fetchPhotoViewInfoTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, _photo);
 					}
 

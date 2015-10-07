@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:background="@android:color/background_light"
         android:horizontalSpacing="4dp"
-        android:numColumns="auto_fit"
+        android:numColumns="3"
         android:verticalSpacing="4dp"/>
 
 </LinearLayout>

@@ -1,20 +1,18 @@
 package com.android.liujian.flichrphotos;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-import com.android.liujian.flichrphotos.fragments.FlickrGalleryFragment;
-import com.android.liujian.flichrphotos.fragments.FlickrPhotographerFragment;
-import com.android.liujian.flichrphotos.fragments.MenuListFragment.IMenu;
 import com.android.liujian.flichrphotos.fragments.FlickrExploreFragment;
+import com.android.liujian.flichrphotos.fragments.MenuListFragment.IMenu;
 import com.android.liujian.flichrphotos.view.SlidingMenu;
 
-public class MainActivity extends Activity implements IMenu{
+public class MainActivity extends FragmentActivity implements IMenu{
 
     private SlidingMenu mSlidingMenu;
 
@@ -29,10 +27,10 @@ public class MainActivity extends Activity implements IMenu{
         View _contentView = mSlidingMenu.getContent();
         Button _toggleMenuButton = (Button)_contentView.findViewById(R.id.menu_toggle);
         
-        FragmentManager fm = getFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.content_fragment_container);
         if(fragment == null){
-        	fragment = new FlickrGalleryFragment();
+        	fragment = new FlickrExploreFragment();
         	fm.beginTransaction().
         	add(R.id.content_fragment_container, fragment)
         	.commit();
@@ -40,20 +38,25 @@ public class MainActivity extends Activity implements IMenu{
         
         
         _toggleMenuButton.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				mSlidingMenu.showMenu();
-			}
-		});
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                mSlidingMenu.showMenu();
+            }
+        });
     }
 
-	@Override
-	public void closeMenu() {
-		// TODO Auto-generated method stub
-		mSlidingMenu.showContent();
-	}
 
+    @Override
+    public void replaceFragment(Fragment fragment) {
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment currentFragment = fm.findFragmentById(R.id.content_fragment_container);
+        mSlidingMenu.showContent();
+
+        if(fragment != null && fragment != currentFragment){
+            fm.beginTransaction().replace(R.id.content_fragment_container, fragment).commit();
+        }
+    }
 
 }

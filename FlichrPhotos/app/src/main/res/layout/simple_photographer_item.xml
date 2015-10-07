@@ -38,6 +38,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/photo_author_name"
             android:textColor="@color/black"
+            android:typeface="sans"
             android:textStyle="bold"/>
 
         <Button
@@ -47,6 +48,7 @@
             android:layout_weight="0"
             android:paddingRight="16dp"
             android:drawablePadding="16dp"
+            android:typeface="sans"
             android:text="Follow"
             android:textSize="16sp"
             android:drawableLeft="@android:drawable/ic_input_add"
@@ -61,6 +63,7 @@
         android:textSize="16sp"
         android:textColor="@color/black"
         android:background="@color/gray_100"
+        android:typeface="sans"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:paddingBottom="16dp"/>

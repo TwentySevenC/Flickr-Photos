@@ -98,6 +98,18 @@ public class Flickr {
     private static final String PEOPLE_INFO_METHOD = "flickr.people.getInfo";
 
     /**
+     * The Method to get photos from a user
+     */
+    private static final String PEOPLE_PHOTOS_METHOD = "flickr.people.getPublicPhotos";
+
+
+    /**
+     * The method to get a people's groups
+     */
+    private static final String PEOPLE_GROUP_METHOD = "flickr.people.getPublicGroups";
+
+
+    /**
      * The method to get gallery photo
      */
     private static final String GALLERIES_PHOTO_METHOD = "flickr.galleries.getPhotos";
@@ -106,11 +118,6 @@ public class Flickr {
      * The method to get gallery list
      */
     private static final String GALLERIES_LIST_METHOD = "flickr.galleries.getList";
-
-    /**
-     * The Method to get photos from a user
-     */
-    private static final String PEOPLE_PHOTOS_METHOD = "flickr.people.getPublicPhotos";
 
     /**
      * The method to get photo set from a user
@@ -242,6 +249,30 @@ public class Flickr {
         return FlickrUtils.fetchGroups(_url);
     }
 
+
+
+    public ArrayList<Group> getGroupsFromUser(String userId){
+        if(userId == null) return null;
+
+        String _url = Uri.parse(END_POINT).buildUpon()
+                .appendQueryParameter("method", PEOPLE_GROUP_METHOD)
+                .appendQueryParameter("api_key", API_KEY)
+                .appendQueryParameter("user_id", userId)
+                .appendQueryParameter("format", OUTPUT_FORMAT)
+                .build().toString();
+
+        return FlickrUtils.fetchGroups(_url);
+
+    }
+
+
+
+
+    /**
+     * A method to get a group's photos
+     * @param groupId group id
+     * @return a list of photos
+     */
     public ArrayList<Photo> getGroupPoolPhoto(String groupId){
         if(groupId == null) return null;
 

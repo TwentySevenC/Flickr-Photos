@@ -527,9 +527,11 @@ public class FlickrUtils {
                 Group _item = new Group();
                 _item.setId(parser.getAttributeValue(null, "id"));
                 _item.setName(parser.getAttributeValue(null, "name"));
-                _item.setMember(parser.getAttributeValue(null, "members"));
-                _item.setTopicCount(parser.getAttributeValue(null, "topic_count"));
+                _item.setMemberCount(parser.getAttributeValue(null, "members"));
                 _item.setPoolCount(parser.getAttributeValue(null, "pool_count"));
+                _item.setBuddyIconUrl(parser.getAttributeValue(null, "iconfarm"),
+                        parser.getAttributeValue(null, "iconserver"), parser.getAttributeValue(null, "nsid"));
+                _item.setBuddyicon(getBitmapFromUrl(_item.getBuddyiconUrl()));
                 groups.add(_item);
             }
 

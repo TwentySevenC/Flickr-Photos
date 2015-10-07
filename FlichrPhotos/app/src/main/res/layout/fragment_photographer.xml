@@ -14,8 +14,7 @@
         android:paddingLeft="16dp"
         android:text="@string/photographer_title"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:alpha="0.5"
-        android:textStyle="bold"/>
+        android:typeface="sans"/>
 
     <ListView
         android:id="@+id/photographer_list"

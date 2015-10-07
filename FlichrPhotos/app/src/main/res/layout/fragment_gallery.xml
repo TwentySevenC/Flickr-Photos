@@ -6,12 +6,16 @@
     android:orientation="vertical"
     android:background="@color/black">
 
-    <SearchView
+    <TextView
         android:id="@+id/search_gallery"
         android:layout_width="match_parent"
         android:layout_height="@dimen/searchview_height"
-        android:background="@color/searchview_background_color"
-        />
+        android:background="@color/indigo_500"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:typeface="sans"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Flickr Gallery"/>
 
 
     <ListView

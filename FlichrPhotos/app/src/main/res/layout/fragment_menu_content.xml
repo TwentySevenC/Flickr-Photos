@@ -1,23 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-    <ImageView 
+    android:orientation="vertical"
+    android:background="@android:color/background_light">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/menu"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:src="@mipmap/menu_image"
-        android:scaleType="centerCrop"/>
-    
-    <ListView 
-        android:id="@+id/menu_list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:choiceMode="singleChoice"
-        android:paddingLeft="@dimen/menu_list_padding"/>
-    
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/menu_explore"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_huge"
+            android:text="Explore"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:drawableLeft="@mipmap/ic_action_camera"
+            android:paddingLeft="16dp"
+            android:drawablePadding="24dp"
+            android:background="@drawable/menu_item_selected_background"/>
+
+        <TextView
+            android:id="@+id/menu_gallery"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_huge"
+            android:text="Gallery"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:drawableLeft="@mipmap/ic_action_picture"
+            android:paddingLeft="16dp"
+            android:drawablePadding="24dp"
+            android:background="@drawable/menu_item_selected_background"/>
+
+        <TextView
+            android:id="@+id/menu_photographer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_huge"
+            android:text="20Under20"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:drawableLeft="@android:drawable/ic_menu_camera"
+            android:paddingLeft="16dp"
+            android:drawablePadding="24dp"
+            android:background="@drawable/menu_item_selected_background"/>
+
+        <TextView
+            android:id="@+id/menu_favourite"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_huge"
+            android:text="Favourite"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:drawableLeft="@mipmap/ic_action_favorite"
+            android:paddingLeft="16dp"
+            android:drawablePadding="24dp"
+            android:background="@drawable/menu_item_selected_background"/>
+
+        <TextView
+            android:id="@+id/menu_help"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_huge"
+            android:text="Help"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:drawableLeft="@mipmap/ic_action_help"
+            android:paddingLeft="16dp"
+            android:drawablePadding="24dp"
+            android:background="@drawable/menu_item_selected_background"/>
+
+    </LinearLayout>
 
 </LinearLayout>

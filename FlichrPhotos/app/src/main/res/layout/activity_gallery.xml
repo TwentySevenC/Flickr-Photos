@@ -16,16 +16,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:drawableLeft="@drawable/abc_ic_ab_back_mtrl_am_alpha"
         android:drawablePadding="16dp"
+        android:typeface="sans"
         android:paddingLeft="16dp"
         />
-
-   <!-- <TextView
-        android:id="@+id/single_gallery_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="description"
-        android:textSize="16dp"/>-->
 
     <GridView
         android:id="@+id/single_gallery_photos"

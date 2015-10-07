@@ -32,6 +32,7 @@
             android:text="gallery owner name"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textStyle="bold"
+            android:typeface="sans"
             android:textColor="@color/black"
             />
 
@@ -44,6 +45,7 @@
             android:layout_toRightOf="@id/gallery_owner_photo_1"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:maxLines="2"
+            android:typeface="sans"
             android:text="8, Oct 7 updated"/>
 
     </RelativeLayout>
@@ -57,6 +59,7 @@
         android:padding="16dp"
         android:singleLine="true"
         android:ellipsize="end"
+        android:typeface="sans"
         android:text="gallery description"
         android:textColor="@color/gray_700"
         android:background="@android:color/background_light"
@@ -78,6 +81,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:padding="16dp"
+        android:typeface="sans"
         android:text="Likes Comments Views"
         android:textStyle="bold"
         android:background="@android:color/background_light"

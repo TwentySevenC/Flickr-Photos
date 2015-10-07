@@ -17,6 +17,7 @@
         android:drawableLeft="@drawable/abc_ic_ab_back_mtrl_am_alpha"
         android:drawablePadding="16dp"
         android:paddingLeft="16dp"
+        android:typeface="sans"
         />
 
     <ListView

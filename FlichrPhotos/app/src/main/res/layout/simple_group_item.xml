@@ -2,38 +2,46 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:layout_height="100dp"
     android:background="@android:color/background_light">
 
     <ImageView
-        android:id="@+id/user_album_cover_image"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:id="@+id/user_group_cover_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginRight="16dp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/default_buddyicon"/>
+        android:src="@mipmap/default_image"/>
 
     <TextView
-        android:id="@+id/user_album_title"
+        android:id="@+id/user_group_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/user_group_cover_image"
         android:layout_marginTop="8dp"
-        android:layout_toRightOf="@id/user_album_cover_image"
         android:text="Flickr API"
         android:typeface="sans"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/black"/>
 
     <TextView
-        android:id="@+id/user_album_brief"
+        android:id="@+id/user_group_photos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/user_group_cover_image"
         android:layout_marginBottom="8dp"
-        android:layout_toRightOf="@id/user_album_cover_image"
         android:typeface="sans"
         android:text="936 Photos"/>
+
+    <TextView
+        android:id="@+id/user_group_members"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/user_group_cover_image"
+        android:layout_above="@id/user_group_photos"
+        android:layout_marginBottom="4dp"
+        android:typeface="sans"
+        android:text="15K Members"/>
 
 </RelativeLayout>

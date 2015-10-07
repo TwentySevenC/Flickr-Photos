@@ -4,22 +4,58 @@
     android:layout_height="match_parent"
     android:orientation="vertical" 
     android:background="@android:color/background_light">
-    
-    <SearchView 
-        android:id="@+id/search_photo"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/searchview_height"
-        android:background="@color/searchview_background_color"
-        />
+        android:layout_height="48dp"
+        android:background="@color/indigo_500"
+        android:gravity="center_vertical">
+        <ImageView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:src="@android:drawable/ic_menu_search"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"/>
+
+        <EditText
+            android:id="@+id/query_txt"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:hint="Search Flickr"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:typeface="sans"
+            android:background="@null"
+            android:layout_height="match_parent"/>
+
+        <ImageButton
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:background="@android:drawable/presence_offline"
+            android:visibility="invisible"/>
+
+        <Button
+            android:id="@+id/search_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginRight="@dimen/margin_small"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:visibility="invisible"
+            android:background="@drawable/button_stroke_shape"
+            android:typeface="sans"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:text="Cancel"/>
+
+    </LinearLayout>
 
     <ListView
         android:id="@+id/explore_image_list1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/background_light"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
         android:choiceMode="singleChoice"
+        android:paddingLeft="@dimen/margin_small"
+        android:paddingRight="@dimen/margin_small"
         />
 
 </LinearLayout>
