@@ -49,7 +49,7 @@ public class UserPhotostreamFragment extends Fragment{
 
 
     public static Fragment newInstance(String userId){
-        UserAlbumFragment _fragment = new UserAlbumFragment();
+        UserPhotostreamFragment _fragment = new UserPhotostreamFragment();
         Bundle _bundle = new Bundle();
         _bundle.putString(USER_ID_KEY, userId);
         _fragment.setArguments(_bundle);

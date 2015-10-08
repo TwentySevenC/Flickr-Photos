@@ -492,6 +492,7 @@ public class SlidingMenu extends RelativeLayout {
 	 */
 	public void showMenu(boolean animate) {
 		mViewAbove.setCurrentItem(0, animate);
+		mViewAbove.setFadeDegree(0.4f);        /**added by j liu 2015/10/7**/
 	}
 
 	/**

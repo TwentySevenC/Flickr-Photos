@@ -2,8 +2,8 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:background="@android:color/background_light">
+    android:layout_height="116dp"
+    android:background="@color/gray_200">
 
     <ImageView
         android:id="@+id/user_group_cover_image"
@@ -21,7 +21,7 @@
         android:layout_marginTop="8dp"
         android:text="Flickr API"
         android:typeface="sans"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="16sp"
         android:textColor="@color/black"/>
 
     <TextView
@@ -30,8 +30,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@id/user_group_cover_image"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="24dp"
         android:typeface="sans"
+        android:textColor="@color/black"
         android:text="936 Photos"/>
 
     <TextView
@@ -41,7 +42,15 @@
         android:layout_toRightOf="@id/user_group_cover_image"
         android:layout_above="@id/user_group_photos"
         android:layout_marginBottom="4dp"
+        android:textColor="@color/black"
         android:typeface="sans"
         android:text="15K Members"/>
+
+    <View
+        android:layout_height="16dp"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/user_group_cover_image"
+        android:background="@android:color/background_light"/>
 
 </RelativeLayout>

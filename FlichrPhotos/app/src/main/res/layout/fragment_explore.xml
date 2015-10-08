@@ -25,6 +25,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:typeface="sans"
             android:background="@null"
+            android:editable="false"
             android:layout_height="match_parent"/>
 
         <ImageButton

@@ -10,11 +10,8 @@
         android:id="@+id/user_albums"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/background_light"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:numColumns="2"
-        android:verticalSpacing="4dp"
-        android:horizontalSpacing="4dp"
-        android:background="@android:color/background_light"/>
+        android:paddingRight="16dp"/>
 
 </LinearLayout>

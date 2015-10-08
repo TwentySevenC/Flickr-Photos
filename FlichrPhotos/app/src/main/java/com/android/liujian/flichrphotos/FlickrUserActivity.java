@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -119,15 +120,19 @@ public class FlickrUserActivity extends FragmentActivity {
 
             switch (position) {
                 case 0:
+                    Log.d(TAG, "Selected photostream..");
                     _fragment = UserPhotostreamFragment.newInstance(mUserId);
                     break;
                 case 1:
+                    Log.d(TAG, "Selected album..");
                     _fragment = UserAlbumFragment.newInstance(mUserId, mUserName);
                     break;
                 case 2:
+                    Log.d(TAG, "Selected favourite..");
                     _fragment = UserFavouriteFragment.newInstance(mUserId);
                     break;
                 case 3:
+                    Log.d(TAG, "Selected group..");
                     _fragment = UserGroupFragment.newInstance(mUserId);
                     break;
                 default:

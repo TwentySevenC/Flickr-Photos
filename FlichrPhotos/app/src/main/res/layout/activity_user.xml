@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/indigo_500"
+        android:background="@mipmap/user_cover"
         android:alpha="0.8"
         android:paddingBottom="16dp"
         android:gravity="center_horizontal"
@@ -21,8 +21,7 @@
             android:layout_height="64dp"
             android:src="@mipmap/default_buddyicon"
             app:civ_border_color="@color/indigo_500"
-            android:layout_marginTop="16dp"
-        />
+            android:layout_marginTop="16dp"/>
 
         <TextView
             android:id="@+id/user_name"
@@ -30,6 +29,7 @@
             android:layout_height="wrap_content"
             android:text="Tay soft"
             android:layout_marginTop="16dp"
+            android:textStyle="bold"
             android:typeface="sans"
             android:textAppearance="?android:attr/textAppearanceMedium"/>
 
@@ -39,7 +39,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:typeface="sans"
+            android:textColor="@android:color/background_light"
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textStyle="bold"
             android:text="10K followers - 100 following"/>
 
     </LinearLayout>

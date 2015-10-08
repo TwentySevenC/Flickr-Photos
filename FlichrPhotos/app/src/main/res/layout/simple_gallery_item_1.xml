@@ -42,6 +42,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/photo_author_name"
                 android:textColor="@color/black"
+                android:singleLine="true"
                 android:typeface="sans"
                 android:textStyle="bold"/>
 
@@ -59,8 +60,11 @@
                 android:layout_gravity="left|bottom"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="gallery name"
+                android:singleLine="true"
                 android:typeface="sans"
-                android:textColor="#444444"/>
+                android:textColor="#444444"
+                android:layout_marginRight="90dp"
+                android:maxLines="2"/>
 
             <TextView
                 android:id="@+id/gallery_photos"

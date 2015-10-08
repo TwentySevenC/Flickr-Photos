@@ -9,4 +9,6 @@
     sliding:viewBehind="@layout/fragment_menu"
     sliding:behindScrollScale="1"
     sliding:touchModeAbove="margin"
-    sliding:behindOffset="148dp"/>
+    sliding:fadeEnabled="true"
+    sliding:fadeDegree="0.3"
+    sliding:behindOffset="100dp"/>

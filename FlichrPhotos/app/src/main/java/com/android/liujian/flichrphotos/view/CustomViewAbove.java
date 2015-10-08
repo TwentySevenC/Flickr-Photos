@@ -174,9 +174,11 @@ public class CustomViewAbove extends ViewGroup {
 					case 0:
 					case 2:
 						mViewBehind.setChildrenEnabled(true);
+                        setFadeDegree(0.5f);                    /**added by j liu 2015/10/7*/
 						break;
 					case 1:
 						mViewBehind.setChildrenEnabled(false);
+                        setFadeDegree(1.0f);                    /**added by j liu 2015/10/7*/
 						break;
 					}
 				}
@@ -991,7 +993,7 @@ public class CustomViewAbove extends ViewGroup {
 
 	boolean pageLeft() {
 		if (mCurItem > 0) {
-			setCurrentItem(mCurItem-1, true);
+			setCurrentItem(mCurItem - 1, true);
 			return true;
 		}
 		return false;
@@ -1003,6 +1005,14 @@ public class CustomViewAbove extends ViewGroup {
 			return true;
 		}
 		return false;
+	}
+
+
+	/*************************/
+	public void setFadeDegree(float degree) {
+		if (degree > 1.0f || degree < 0.0f)
+			throw new IllegalStateException("The BehindFadeDegree must be between 0.0f and 1.0f");
+		mContent.setAlpha(degree);
 	}
 
 }
