@@ -9,6 +9,8 @@
     <dimen name="margin_large">32dp</dimen>
     <dimen name="margin_huge">64dp</dimen>
 
+    <dimen name="staggered_margin">10dp</dimen>
+
     <!-- Semantic definitions -->
 
     <dimen name="horizontal_page_margin">@dimen/margin_medium</dimen>
@@ -33,5 +35,6 @@
     <dimen name="author_name_margin_left">20dp</dimen>
 
     <dimen name="handler_photo_icon">30dp</dimen>
+
 
 </resources>

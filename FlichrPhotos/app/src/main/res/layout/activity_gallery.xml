@@ -24,7 +24,7 @@
         android:id="@+id/single_gallery_photos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:numColumns="auto_fit"
+        android:numColumns="2"
         android:verticalSpacing="4dp"
         android:horizontalSpacing="4dp"
         android:stretchMode="columnWidth"

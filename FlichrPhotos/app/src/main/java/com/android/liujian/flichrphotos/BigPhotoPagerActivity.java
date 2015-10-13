@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.android.liujian.flichrphotos.control.Flickr;
 import com.android.liujian.flichrphotos.control.PeopleDownloader;
+import com.android.liujian.flichrphotos.data.FlickrDataBaseHelper;
 import com.android.liujian.flichrphotos.fragments.BigPhotoSlideFragment;
 import com.android.liujian.flichrphotos.model.Comment;
 import com.android.liujian.flichrphotos.model.Photo;
@@ -40,6 +41,7 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 	private int mPhotoPosition;
 
 	private PeopleDownloader mPeopleDownloader;
+	private FlickrDataBaseHelper mDataBaseHelper;
 
 	@Override
 	public void hiddenPhotoInfo(boolean isHidden) {
@@ -57,6 +59,9 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.big_flickr_photo);
+
+        mDataBaseHelper = new FlickrDataBaseHelper(BigPhotoPagerActivity.this);
+
 		mViewPager = (ViewPager)findViewById(R.id.photo_pager);
 		mPhotoCommentCount = (TextView)findViewById(R.id.photo_num_comments);
 		mPhotoFavCount = (TextView)findViewById(R.id.photo_num_faves);
@@ -154,7 +159,7 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 
 	public void addPhotoFavourite(View v){
 		//TODO: add photo as a favourite one
-
+        mDataBaseHelper.insertPhoto(mPhotoList.get(mPhotoPosition));
 	}
 
 

@@ -16,7 +16,6 @@
 
 <resources>
 
-    
     <declare-styleable name="SlidingMenu">
         <attr name="mode">
             <enum name="left" value="0" />
@@ -51,6 +50,13 @@
         <attr name="civ_border_color" format="color"/>
         <attr name="civ_border_overlay" format="boolean"/>
         <attr name="civ_fill_color" format="color"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="StaggeredGridView">
+        <attr name="drawSelectorOnTop" format="boolean"/>
+        <attr name="numColumns" format="integer"/>
+        <attr name="itemMargin" format="dimension"/>
     </declare-styleable>
 
 </resources>

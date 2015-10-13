@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:staggered="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -24,7 +25,7 @@
             android:text="Flickr Favourite"/>
 
         <TextView
-            android:id="@+id/favourite_photos"
+            android:id="@+id/favourite_photo_count"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="right"
@@ -34,13 +35,12 @@
     </FrameLayout>
 
 
-    <GridView
+    <com.android.liujian.flichrphotos.view.StaggeredGridView
         android:id="@+id/favourite_list"
+        staggered:numColumns="2"
+        staggered:drawSelectorOnTop="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:numColumns="3"
-        android:verticalSpacing="16dp"
-        android:horizontalSpacing="16dp"/>
+        android:layout_height="match_parent"/>
 
 
 </LinearLayout>
