@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.android.liujian.flichrphotos.BigPhotoPagerActivity;
 import com.android.liujian.flichrphotos.R;
@@ -31,6 +32,7 @@ public class FlickrFavouriteFragment extends Fragment{
     private List<Photo> mFavouritePhotos;
     private FlickrDataBaseHelper mDataBaseHelper;
     private StaggeredGridView mGridView;
+    private TextView mFavPhotoCount;
 
 
     @Override
@@ -47,6 +49,7 @@ public class FlickrFavouriteFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favourite, container, false);
         mGridView = (StaggeredGridView)view.findViewById(R.id.favourite_list);
+        mFavPhotoCount = (TextView)view.findViewById(R.id.favourite_photo_count);
 
         mGridView.setOnItemClickListener(new StaggeredGridView.OnItemClickListener() {
             @Override
@@ -103,6 +106,7 @@ public class FlickrFavouriteFragment extends Fragment{
         @Override
         protected void onPostExecute(List<Photo> photos) {
             mFavouritePhotos = photos;
+            mFavPhotoCount.setText(photos.size() + " photos");
             setUpAdapter();
         }
     }

@@ -8,13 +8,19 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -34,6 +40,8 @@ public class FlickrExploreFragment extends Fragment {
     
     private ListView mListView;
     private ArrayList<Photo> mItems;
+    private EditText mSearchTxt;
+    private Button mSearchCancelBtn;
 //    private ThumbnailDownloader<ImageView> mThumbnailDownloader;
 
     public FlickrExploreFragment() {
@@ -91,6 +99,66 @@ public class FlickrExploreFragment extends Fragment {
                         .setContent(R.id.tab2)
                         .setIndicator(null, getResources().getDrawable(android.R.drawable.ic_menu_search));
         tabHost.addTab(tabSpec);*/
+        ImageView searchImage = (ImageView)view.findViewById(R.id.search_image);
+        final ImageView clearSearchTxt = (ImageView)view.findViewById(R.id.clear_search_text);
+        mSearchTxt = (EditText)view.findViewById(R.id.search_txt);
+        mSearchCancelBtn = (Button)view.findViewById(R.id.search_cancel);
+
+        searchImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSearchCancelBtn.setVisibility(View.VISIBLE);
+            }
+        });
+
+        mSearchTxt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(mSearchCancelBtn.getVisibility() != View.VISIBLE)
+                    mSearchCancelBtn.setVisibility(View.VISIBLE);
+                return false;
+            }
+        });
+
+        mSearchTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                if(mSearchCancelBtn.getVisibility() != View.VISIBLE){
+                    mSearchCancelBtn.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!mSearchTxt.getText().toString().trim().equals("")) {
+                    clearSearchTxt.setVisibility(View.VISIBLE);
+                } else {
+                    clearSearchTxt.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+        clearSearchTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSearchTxt.setText("");
+                clearSearchTxt.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        mSearchCancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSearchTxt.setText("");
+                clearSearchTxt.setVisibility(View.INVISIBLE);
+                mSearchCancelBtn.setVisibility(View.INVISIBLE);
+            }
+        });
         
         mListView = (ListView)view.findViewById(R.id.explore_image_list1);
         mListView.setOnItemClickListener(new ListPhotoClickListener());
