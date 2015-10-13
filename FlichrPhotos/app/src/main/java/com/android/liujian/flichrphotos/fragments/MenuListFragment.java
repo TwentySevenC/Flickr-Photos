@@ -66,7 +66,7 @@ public class MenuListFragment extends Fragment {
 		menuFavourite.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getActivity(), "Favourite", Toast.LENGTH_SHORT).show();
+				mMenuStub.replaceFragment(new FlickrFavouriteFragment());
 			}
 		});
 

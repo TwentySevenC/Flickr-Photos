@@ -457,8 +457,8 @@ public class FlickrUtils {
 
                 _item.setUrl(parser.getAttributeValue(null, EXTRA_MEDIUM_URL));
 
-                if(parser.getAttributeValue(null, EXTRA_MEDIUM_URL) != null)
-                    Log.d(TAG, parser.getAttributeValue(null, EXTRA_MEDIUM_URL));
+                if(_item.getUrl() != null)
+                    Log.d(TAG, _item.getUrl());
 
                 _item.setTitle(parser.getAttributeValue(null, "title"));
                 _item.setOwnerId(parser.getAttributeValue(null, "owner"));
