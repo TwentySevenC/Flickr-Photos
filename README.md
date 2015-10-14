@@ -1,10 +1,12 @@
 # Flickr-Photos
-An app for Flickr
+This is an app for Flickr
 
-![image](https://github.com/TwentySevenC/Flickr-Photos/tree/master/FlichrPhotos/screenshots/S51008-173454.jpg)
+Your phone should can access flickr website...
 
-![image](https://github.com/TwentySevenC/Flickr-Photos/tree/master/FlichrPhotos/screenshots/S51008-173459.jpg)
+<img src="https://github.com/TwentySevenC/Flickr-Photos/tree/master/FlichrPhotos/screenshots/S51008-173454.jpg" width="350px">
 
-![image](https://github.com/TwentySevenC/Flickr-Photos/tree/master/FlichrPhotos/screenshots/S51008-173543.jpg)
+<img src="https://github.com/TwentySevenC/Flickr-Photos/tree/master/FlichrPhotos/screenshots/S51008-173459.jpg" width="350px">
 
-![image](https://github.com/TwentySevenC/Flickr-Photos/tree/master/FlichrPhotos/screenshots/S51008-173638.jpg)
+<img src="https://github.com/TwentySevenC/Flickr-Photos/tree/master/FlichrPhotos/screenshots/S51008-173543.jpg" width="350px">
+
+<img src="https://github.com/TwentySevenC/Flickr-Photos/tree/master/FlichrPhotos/screenshots/S51008-173638.jpg" width="350px">
