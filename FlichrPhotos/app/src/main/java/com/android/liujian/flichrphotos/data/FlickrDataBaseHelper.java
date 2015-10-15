@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.android.liujian.flichrphotos.model.Photo;
 
@@ -16,6 +17,7 @@ import java.util.List;
  * DataBase for saving user favourite photos
  */
 public class FlickrDataBaseHelper extends SQLiteOpenHelper{
+    private static final String TAG = "FlickrDataBaseHelper";
     private static final int VERSION = 1;
     private static final String DATABASE_NAME = "user.sqlite";
 
@@ -34,7 +36,7 @@ public class FlickrDataBaseHelper extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         String createTableSql = "CREATE TABLE " + TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 PHOTO_ID + " TEXT NOT NULL, " + PHOTO_TITLE + " TEXT, " + PHOTO_OWNER +
-                " TEXT, " + PHOTO_URL + " TEXT, UNIQUE(photo_id));";
+                " TEXT, " + PHOTO_URL + " TEXT, UNIQUE(" + PHOTO_ID + "));";
         db.execSQL(createTableSql);
     }
 
@@ -61,6 +63,8 @@ public class FlickrDataBaseHelper extends SQLiteOpenHelper{
 
         db.insert(TABLE_NAME, null, cv);
         db.close();
+
+        Log.d(TAG, "Success to insert a favourite photo into database..");
     }
 
 

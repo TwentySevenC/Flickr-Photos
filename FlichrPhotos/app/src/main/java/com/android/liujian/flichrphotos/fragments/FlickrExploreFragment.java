@@ -42,7 +42,6 @@ public class FlickrExploreFragment extends Fragment {
     private ArrayList<Photo> mItems;
     private EditText mSearchTxt;
     private Button mSearchCancelBtn;
-//    private ThumbnailDownloader<ImageView> mThumbnailDownloader;
 
     public FlickrExploreFragment() {
         // Required empty public constructor
@@ -55,24 +54,6 @@ public class FlickrExploreFragment extends Fragment {
         setRetainInstance(true);
 
         new FetchItemsTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        /**Start the handler thread*//*
-        mThumbnailDownloader = new ThumbnailDownloader<ImageView>(new Handler());
-        mThumbnailDownloader.setOnThumbnailListener(new ThumbnailDownloader.ThumbnailListener<ImageView>() {
-
-			@Override
-			public void onThumbnailHandler(ImageView imageView, Bitmap bitmap) {
-				*//**If the fragment is visible, set a bitmap for imageView*//*
-                if (isVisible()) {
-                    imageView.setImageBitmap(bitmap);
-                }
-				
-			}
-        });
-        mThumbnailDownloader.start();
-        mThumbnailDownloader.getLooper();
-
-        Log.d(TAG, "Background thread started.");*/
 
     }
 	@Override
@@ -123,9 +104,7 @@ public class FlickrExploreFragment extends Fragment {
         mSearchTxt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if(mSearchCancelBtn.getVisibility() != View.VISIBLE){
-                    mSearchCancelBtn.setVisibility(View.VISIBLE);
-                }
+                //
             }
 
             @Override
@@ -250,12 +229,8 @@ public class FlickrExploreFragment extends Fragment {
 
 			Intent intent = new Intent(getActivity(), BigPhotoPagerActivity.class);
 			Bundle bundle = new Bundle();
-
-
             bundle.putSerializable(BigPhotoPagerActivity.BIG_PHOTO_ITEMS, mItems);
-
             bundle.putInt(BigPhotoPagerActivity.BIG_PHOTO_POSITION, position);
-
             intent.putExtras(bundle);
 			
 			startActivity(intent);

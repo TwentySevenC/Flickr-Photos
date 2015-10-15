@@ -45,7 +45,7 @@
             android:layout_marginRight="20dp"
             android:contentDescription="@string/photo_favourate"
             android:onClick="addPhotoFavourite"
-            android:src="@drawable/abc_btn_rating_star_off_mtrl_alpha"/>
+            android:src="@drawable/photo_favourite_selector"/>
 
         <ImageView
             android:id="@+id/photo_conmments"
@@ -56,7 +56,7 @@
             android:layout_toRightOf="@+id/photo_favourate"
             android:contentDescription="@string/photo_comments"
             android:onClick="showPhotoComments"
-            android:src="@android:drawable/ic_menu_set_as"/>
+            android:src="@mipmap/ic_action_chat"/>
 
         <ImageView
             android:id="@+id/photo_share"
@@ -67,7 +67,7 @@
             android:layout_toRightOf="@+id/photo_conmments"
             android:contentDescription="@string/photo_share"
             android:onClick="photoShare"
-            android:src="@android:drawable/ic_menu_share"/>
+            android:src="@mipmap/ic_action_share"/>
 
         <ImageView
             android:id="@+id/photo_info"
@@ -77,7 +77,7 @@
             android:layout_toRightOf="@+id/photo_share"
             android:contentDescription="@string/photo_share"
             android:onClick="showPhotoInfo"
-            android:src="@android:drawable/ic_menu_info_details"/>
+            android:src="@mipmap/ic_action_about"/>
 
         <LinearLayout
             android:layout_width="wrap_content"

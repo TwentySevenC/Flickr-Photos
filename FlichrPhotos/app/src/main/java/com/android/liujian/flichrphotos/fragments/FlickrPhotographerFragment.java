@@ -1,6 +1,8 @@
 package com.android.liujian.flichrphotos.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +15,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.liujian.flichrphotos.FlickrUserActivity;
 import com.android.liujian.flichrphotos.R;
 import com.android.liujian.flichrphotos.control.BitmapDownloader;
+import com.android.liujian.flichrphotos.control.PeopleDownloader;
 
 
 /**
@@ -104,13 +108,24 @@ public class FlickrPhotographerFragment extends Fragment {
 
             BitmapDownloader.getInstance().load(mPhotographerCoverUrls[position],
                     R.mipmap.default_image, _photographerCover);
-//            _photographerAuthorImage.setImageResource(R.mipmap.default_image);
+
 
             _photographerAuthorImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO: author
-                    Toast.makeText(getActivity(), mPhotographerNames[position], Toast.LENGTH_SHORT).show();
+
+                    if(PeopleDownloader.getDownloader() == null){
+                        PeopleDownloader peopleDownloader = PeopleDownloader.getInstance(new Handler());
+                        peopleDownloader.start();
+                        peopleDownloader.getLooper();
+                    }
+
+                    Intent _intent = new Intent(getActivity(), FlickrUserActivity.class);
+                    Bundle _bundle = new Bundle();
+                    _bundle.putString(FlickrUserActivity.USER_ID_KEY, mPhotographerIds[position]);
+                    _bundle.putString(FlickrUserActivity.USER_NAME_KEY, mPhotographerNames[position]);
+                    _intent.putExtras(_bundle);
+                    startActivity(_intent);
                 }
             });
 

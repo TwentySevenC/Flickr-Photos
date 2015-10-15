@@ -1,7 +1,6 @@
 package com.android.liujian.flichrphotos;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,11 +14,9 @@ import android.widget.TextView;
 
 import com.android.liujian.flichrphotos.control.BitmapDownloader;
 import com.android.liujian.flichrphotos.control.Flickr;
-import com.android.liujian.flichrphotos.model.Gallery;
 import com.android.liujian.flichrphotos.model.Photo;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by liujian on 15/9/24.

@@ -71,14 +71,14 @@
             android:background="@drawable/menu_item_selected_background"/>
 
         <TextView
-            android:id="@+id/menu_help"
+            android:id="@+id/menu_setting"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_huge"
-            android:text="Help"
+            android:text="Setting"
             android:gravity="center_vertical"
             android:textColor="@color/black"
             android:textSize="14sp"
-            android:drawableLeft="@mipmap/ic_action_help"
+            android:drawableLeft="@mipmap/ic_action_settings"
             android:paddingLeft="16dp"
             android:drawablePadding="24dp"
             android:background="@drawable/menu_item_selected_background"/>

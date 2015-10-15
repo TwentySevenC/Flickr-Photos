@@ -15,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.liujian.flichrphotos.control.Flickr;
 import com.android.liujian.flichrphotos.control.PeopleDownloader;
@@ -160,6 +161,8 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 	public void addPhotoFavourite(View v){
 		//TODO: add photo as a favourite one
         mDataBaseHelper.insertPhoto(mPhotoList.get(mPhotoPosition));
+        v.setPressed(true);
+		Toast.makeText(this, "+1", Toast.LENGTH_SHORT).show();
 	}
 
 
@@ -180,6 +183,7 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 
 	public void showPhotoInfo(View v){
 		//TODO: show photo information
+        Toast.makeText(this, "Photo information..", Toast.LENGTH_LONG).show();
 	}
 
 
