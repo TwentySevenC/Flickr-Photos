@@ -42,6 +42,7 @@ public class UserFavouriteFragment extends Fragment{
 
         String _userId = (String) getArguments().get(USER_ID_KEY);
         new FetchFavouritesTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, _userId);
+        Log.d(TAG, "FetchFavouritesTask started..");
     }
 
 
@@ -127,12 +128,12 @@ public class UserFavouriteFragment extends Fragment{
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if(null == convertView){
-                convertView = new ImageView(getActivity());
+                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.simple_photo_item_1, parent, false);
             }
 
-            ((ImageView)convertView).setScaleType(ImageView.ScaleType.CENTER_CROP);
+            ImageView _imageView = (ImageView)convertView.findViewById(R.id.simple_photo_item_1);
 
-            BitmapDownloader.getInstance().load(getItem(position).getUrl(), R.mipmap.default_image, convertView);
+            BitmapDownloader.getInstance().load(getItem(position).getUrl(), R.mipmap.default_image, _imageView);
 
             return convertView;
         }

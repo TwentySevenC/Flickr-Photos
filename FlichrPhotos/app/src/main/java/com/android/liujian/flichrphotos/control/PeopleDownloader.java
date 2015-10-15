@@ -107,6 +107,7 @@ public class PeopleDownloader extends HandlerThread implements IDownloader<Peopl
                 if(userId == null) return ;
 
                 final People _people = downloadModel(userId);
+                if(_people == null) return ;
 
                 mUIThreadHandler.post(new Runnable() {
                     @Override

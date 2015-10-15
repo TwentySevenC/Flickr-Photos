@@ -116,7 +116,7 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 					if(_photo.getCommentCount() != null){
 						setPhotoFavCommentCount(_photo);
 					}else{
-						new fetchPhotoViewInfoTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, _photo);
+						new FetchPhotoViewInfoTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, _photo);
 					}
 
 				}
@@ -129,7 +129,14 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 
 	}
 
-	@Override
+
+    @Override
+    protected void onStop() {
+
+        super.onStop();
+    }
+
+    @Override
 	protected void onDestroy() {
 		mPeopleDownloader.reset();
 		super.onDestroy();
@@ -141,6 +148,7 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 	 * @param photo photo
 	 */
 	public void setPhotoFavCommentCount(Photo photo){
+        if(photo == null) return ;
 		mPhotoFavCount.setText(photo.getFavCount() + " Favs");
 		mPhotoCommentCount.setText(photo.getCommentCount() + " Comments");
 	}
@@ -222,9 +230,13 @@ public class BigPhotoPagerActivity extends FragmentActivity  implements BigPhoto
 	/**
 	 * An AsyncTask to download photo's comments count and views count
 	 */
-	private class fetchPhotoViewInfoTask extends AsyncTask<Photo, Void, Photo>{
+	private class FetchPhotoViewInfoTask extends AsyncTask<Photo, Void, Photo>{
 		@Override
 		protected Photo doInBackground(Photo... params) {
+            if(isCancelled()){
+                return null;
+            }
+
 			Photo photo = params[0];
 
 			photo.setFavCount(String.valueOf(Flickr.getInstance().getPhotoFavCount(photo.getId())));

@@ -115,7 +115,7 @@ public class FlickrFavouriteFragment extends Fragment{
     /**
      * StaggeredGridView adapter
      */
-    private class StaggeredAdapter extends ArrayAdapter<Photo>{
+    public static class StaggeredAdapter extends ArrayAdapter<Photo>{
 
         public StaggeredAdapter(Context context, int resource, List<Photo> objects) {
             super(context, resource, objects);
@@ -127,7 +127,7 @@ public class FlickrFavouriteFragment extends Fragment{
 
             if(convertView == null){
                 LayoutInflater _layoutInflater = LayoutInflater.from(getContext());
-                convertView = _layoutInflater.inflate(R.layout.simple_staggered_item, null);
+                convertView = _layoutInflater.inflate(R.layout.simple_staggered_item, parent, false);
                 _holder = new ViewHolder();
                 _holder.imageView = (ScaleImageView)convertView.findViewById(R.id.staggered_item);
                 convertView.setTag(_holder);

@@ -1,6 +1,7 @@
 package com.android.liujian.flichrphotos.fragments;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -129,12 +130,11 @@ public class UserPhotostreamFragment extends Fragment{
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if(null == convertView){
-                convertView = new ImageView(getActivity());
+                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.simple_photo_item_1, parent, false);
             }
 
-            ((ImageView)convertView).setScaleType(ImageView.ScaleType.CENTER_CROP);
-
-            BitmapDownloader.getInstance().load(mPhotos.get(position).getUrl(), R.mipmap.default_image, convertView);
+            ImageView _imageView = (ImageView)convertView.findViewById(R.id.simple_photo_item_1);
+            BitmapDownloader.getInstance().load(getItem(position).getUrl(), R.mipmap.default_image, _imageView);
 
             return convertView;
         }

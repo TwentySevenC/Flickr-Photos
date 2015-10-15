@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -14,7 +16,9 @@ import android.widget.TextView;
 
 import com.android.liujian.flichrphotos.control.BitmapDownloader;
 import com.android.liujian.flichrphotos.control.Flickr;
+import com.android.liujian.flichrphotos.fragments.FlickrFavouriteFragment;
 import com.android.liujian.flichrphotos.model.Photo;
+import com.android.liujian.flichrphotos.view.StaggeredGridView;
 
 import java.util.ArrayList;
 
@@ -31,7 +35,7 @@ public class GalleryPhotoActivity extends Activity{
 
 
     private ArrayList<Photo> mGalleryPhotos;
-    private GridView mGridView;
+    private StaggeredGridView mGridView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,14 +61,12 @@ public class GalleryPhotoActivity extends Activity{
         });
 
 
-        mGridView = (GridView)findViewById(R.id.single_gallery_photos);
-        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mGridView = (StaggeredGridView)findViewById(R.id.single_gallery_photos);
+        mGridView.setOnItemClickListener(new StaggeredGridView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(StaggeredGridView parent, View view, int position, long id) {
                 Intent intent = new Intent(GalleryPhotoActivity.this, BigPhotoPagerActivity.class);
                 Bundle bundle = new Bundle();
-
-
                 bundle.putSerializable(BigPhotoPagerActivity.BIG_PHOTO_ITEMS, mGalleryPhotos);
 
                 bundle.putInt(BigPhotoPagerActivity.BIG_PHOTO_POSITION, position);
@@ -75,27 +77,36 @@ public class GalleryPhotoActivity extends Activity{
             }
         });
 
+        int margin = getResources().getDimensionPixelSize(R.dimen.staggered_margin);
+
+        mGridView.setItemMargin(margin);
+
+        mGridView.setPadding(margin, 0, margin, 0);
+
         setUpAdapter();
 
     }
 
 
     /**
-     * Set a adapter for the Grid view
+     * Set a adapter for the list view
      */
     public void setUpAdapter(){
         if(mGridView == null)  return ;
 
-        if(mGalleryPhotos != null)
-            mGridView.setAdapter(new GridViewAdapter(mGalleryPhotos));
+        if(mGalleryPhotos != null){
+            FlickrFavouriteFragment.StaggeredAdapter adapter = new FlickrFavouriteFragment.StaggeredAdapter(GalleryPhotoActivity.this, R.id.staggered_item, mGalleryPhotos);
+            mGridView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
         else
             mGridView.setAdapter(null);
     }
 
 
-    /**
+/*    *//**
      * GridView adapter
-     */
+     *//*
     private class GridViewAdapter extends ArrayAdapter<Photo>{
 
         public GridViewAdapter(ArrayList<Photo> objects) {
@@ -105,16 +116,15 @@ public class GalleryPhotoActivity extends Activity{
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if(null == convertView){
-                convertView = new ImageView(GalleryPhotoActivity.this);
+                convertView = LayoutInflater.from(GalleryPhotoActivity.this).inflate(R.layout.activity_gallery_item, parent, false);
             }
 
-            ((ImageView)convertView).setScaleType(ImageView.ScaleType.CENTER_CROP);
-
-            BitmapDownloader.getInstance().load(getItem(position).getUrl(), R.mipmap.default_image, convertView);
+            ImageView _imageView = (ImageView)convertView.findViewById(R.id.simple_photo_item_1);
+            BitmapDownloader.getInstance().load(getItem(position).getUrl(), R.mipmap.default_image, _imageView);
 
             return convertView;
         }
-    }
+    }*/
 
 
     /**
@@ -129,6 +139,7 @@ public class GalleryPhotoActivity extends Activity{
         @Override
         protected void onPostExecute(ArrayList<Photo> photos) {
             mGalleryPhotos = photos;
+            Log.d(TAG, "Success to download gallery photos..");
 
             setUpAdapter();
         }
