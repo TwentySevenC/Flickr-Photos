@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.android.liujian.flichrphotos.control.BitmapDownloader;
+import com.android.liujian.flichrphotos.control.PeopleDownloader;
 import com.android.liujian.flichrphotos.fragments.FlickrExploreFragment;
 import com.android.liujian.flichrphotos.fragments.MenuListFragment.IMenu;
 import com.android.liujian.flichrphotos.view.SlidingMenu;
@@ -45,6 +47,15 @@ public class MainActivity extends FragmentActivity implements IMenu{
                 mSlidingMenu.showMenu();
             }
         });
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        /**Clear the cache*/
+        BitmapDownloader.getInstance().reset();
+        PeopleDownloader.getDownloader().reset();
     }
 
 

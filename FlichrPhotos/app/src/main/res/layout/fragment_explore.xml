@@ -31,6 +31,7 @@
             android:hint="Search Flickr"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:typeface="sans"
+            android:imeOptions="actionSearch"
             android:background="@null"
             android:layout_height="match_parent"/>
 

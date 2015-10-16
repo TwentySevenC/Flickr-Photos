@@ -6,15 +6,43 @@
     android:orientation="vertical"
     android:background="@android:color/background_light">
 
-    <com.android.liujian.flichrphotos.view.SlidingTabLayout
-        android:id="@+id/search_item_title"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"/>
+        android:layout_height="48dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/search_photo_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="photo"
+            android:textColor="@color/gray_500"
+            android:background="@android:color/background_light"/>
+        <Button
+            android:id="@+id/search_people_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="people"
+            android:textColor="@color/gray_500"
+            android:background="@android:color/background_light"/>
+        <Button
+            android:id="@+id/search_group_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="group"
+            android:textColor="@color/gray_500"
+            android:background="@android:color/background_light"/>
+    </LinearLayout>
 
-    <android.support.v4.view.ViewPager
+    <GridView
+        android:id="@+id/search_return_content"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="4dp"
+        android:horizontalSpacing="4dp"
         android:background="@color/gray_50"/>
 
 </LinearLayout>

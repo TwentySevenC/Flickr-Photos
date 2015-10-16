@@ -88,6 +88,8 @@ public class BitmapDownloader implements IDownloader<Bitmap>{
      */
     @Override
     public void reset(){
+        if(sBitmapDownloader == null) return ;
+
         ExecutorService _oldThreadPool = mThreadPool;
         mThreadPool = new ThreadPoolExecutor(CORE_POOL_SIZE, MAX_THREAD_POOL_SIZE, KEEP_ALIVE_TIME,
                 TimeUnit.SECONDS, new BlockingLifoDeque<Runnable>());

@@ -4,18 +4,25 @@ package com.android.liujian.flichrphotos.fragments;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -23,6 +30,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.liujian.flichrphotos.BigPhotoPagerActivity;
 import com.android.liujian.flichrphotos.control.BitmapDownloader;
@@ -56,6 +65,8 @@ public class FlickrExploreFragment extends Fragment {
         new FetchItemsTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
     }
+
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -89,13 +100,14 @@ public class FlickrExploreFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mSearchCancelBtn.setVisibility(View.VISIBLE);
+                mSearchTxt.setFocusable(true);
             }
         });
 
         mSearchTxt.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(mSearchCancelBtn.getVisibility() != View.VISIBLE)
+                if (mSearchCancelBtn.getVisibility() != View.VISIBLE)
                     mSearchCancelBtn.setVisibility(View.VISIBLE);
                 return false;
             }
@@ -122,6 +134,20 @@ public class FlickrExploreFragment extends Fragment {
             }
         });
 
+        /**Handle search event*/
+        mSearchTxt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH ||
+                        (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)){
+                    hideSoftInputFromWindow();
+                    Toast.makeText(getActivity(), "search", Toast.LENGTH_LONG).show();
+                    return true;
+                }
+                return false;
+            }
+        });
+
         clearSearchTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,6 +159,7 @@ public class FlickrExploreFragment extends Fragment {
         mSearchCancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideSoftInputFromWindow();
                 mSearchTxt.setText("");
                 clearSearchTxt.setVisibility(View.INVISIBLE);
                 mSearchCancelBtn.setVisibility(View.INVISIBLE);
@@ -144,6 +171,18 @@ public class FlickrExploreFragment extends Fragment {
 		setUpAdapter();    /**If changed the screen's direction, view will be destroyed, the adapter need to reset again */
 		return view;
 	}
+
+    /**
+     * Hide soft input
+     */
+    public void hideSoftInputFromWindow() {
+        IBinder _binder = getActivity().getCurrentFocus().getWindowToken();
+        if (_binder != null) {
+            ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE))
+                    .hideSoftInputFromWindow(_binder, InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+
+    }
 
 
 
@@ -169,6 +208,7 @@ public class FlickrExploreFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+//        BitmapDownloader.getInstance().reset();
     }
 
 

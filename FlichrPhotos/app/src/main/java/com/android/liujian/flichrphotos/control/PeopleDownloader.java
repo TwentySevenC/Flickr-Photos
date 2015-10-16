@@ -28,7 +28,7 @@ public class PeopleDownloader extends HandlerThread implements IDownloader<Peopl
 
     private static final int MESSAGE_WHAT = 1;
 
-    private static PeopleDownloader mPeopleDownloader = null;
+    private static PeopleDownloader sPeopleDownloader = null;
     private Handler mDownloadHandler;
     private Handler mUIThreadHandler;
     private final Map<String, SoftReference<People>> mCache;
@@ -56,10 +56,10 @@ public class PeopleDownloader extends HandlerThread implements IDownloader<Peopl
      * @return a singleton instance
      */
     public static PeopleDownloader getInstance(Handler handler){
-        if(mPeopleDownloader == null){
-            mPeopleDownloader = new PeopleDownloader(handler);
+        if(sPeopleDownloader == null){
+            sPeopleDownloader = new PeopleDownloader(handler);
         }
-        return mPeopleDownloader;
+        return sPeopleDownloader;
     }
 
 
@@ -68,7 +68,7 @@ public class PeopleDownloader extends HandlerThread implements IDownloader<Peopl
      * @return the PeopleDownloader class
      */
     public static PeopleDownloader getDownloader(){
-        return mPeopleDownloader;
+        return sPeopleDownloader;
     }
 
 
@@ -198,6 +198,8 @@ public class PeopleDownloader extends HandlerThread implements IDownloader<Peopl
 
     @Override
     public void reset() {
+        if(sPeopleDownloader == null) return ;
+
         mDownloadHandler.removeMessages(MESSAGE_WHAT);
         mCache.clear();
         mImageViews.clear();
